@@ -1,0 +1,6 @@
+(executable
+ (name main)
+ (public_name cubzzle)
+ (package cubzzle)
+ (flags -warn-error +a)
+ (libraries core cubzzle))

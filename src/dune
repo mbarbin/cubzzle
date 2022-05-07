@@ -1,0 +1,7 @@
+(library
+ (name cubzzle)
+ (public_name cubzzle)
+ (flags -warn-error +a)
+ (libraries core graphics)
+ (preprocess
+  (pps ppx_sexp_value)))
