@@ -137,7 +137,7 @@ type inf_sup =
 
 type un_relief = inf_sup array array
 
-let relief_factory () =
+let relief_factory () : un_relief =
   let t = Array.create ~len:tx [||] in
   for x = 0 to tx - 1 do
     t.(x) <- Array.create ~len:ty { inf = 0; sup = 0 }
@@ -184,7 +184,7 @@ let le_relief = cree_relief z_relief
 
 let ( $ ) a n =
   let r = ref 1 in
-  for i = 1 to n do
+  for _ = 1 to n do
     r := !r * a
   done;
   !r
@@ -242,7 +242,7 @@ let draw_poly r =
 (* on dessine en perspective avec une vue depuis en haut à gauche. *)
 (* luminausité différente sur la face haute, et sur la face gauche *)
 
-let draw_cube (x, y) largeur delta_x delta_y coul num =
+let draw_cube (x, y) largeur delta_x delta_y coul =
   let _triplet_rgb = from_rgb coul in
   (* face_avant *)
   set_color (couleur_assombrie coul 0.8);
@@ -306,7 +306,7 @@ let draw_boite (a, b) list_id =
           let xM = a - (delta_x * j) + (largeur_cube * i)
           and yM = b - (delta_y * j) + (largeur_cube * k)
           and coul = couleur_piece.(n - 1) in
-          draw_cube (xM, yM) largeur_cube delta_x delta_y coul n)
+          draw_cube (xM, yM) largeur_cube delta_x delta_y coul)
         else ()
       done
     done
@@ -326,7 +326,7 @@ let draw_pieces (a, b) =
         let xM = a - (delta_x * j) + (largeur_cube / 2 * i)
         and yM = b - (delta_y * j) + (largeur_cube / 2 * k)
         and coul = couleur_piece.(n) in
-        draw_cube (xM, yM) (largeur_cube / 2) delta_x delta_y coul n;
+        draw_cube (xM, yM) (largeur_cube / 2) delta_x delta_y coul;
         f_aux q
     in
     f_aux liste_t
@@ -718,7 +718,7 @@ let rec emboite_exhaustif_rec liste_pieces =
     done
 ;;
 
-let emboite_exhaustif liste_pieces =
+let _emboite_exhaustif liste_pieces =
   vider_la_boite ();
   print_string "\n";
   print_string " Recherche en cours d'execution ";
@@ -885,7 +885,7 @@ let rec chercher_les_solutions_rec liste_pieces =
 
 let efface_les_solutions () = les_solutions.nb <- 0
 
-let chercher_les_solutions liste_pieces =
+let _chercher_les_solutions liste_pieces =
   efface_les_solutions ();
   vider_la_boite ();
   print_string "\n";

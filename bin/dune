@@ -2,5 +2,5 @@
  (name main)
  (public_name cubzzle)
  (package cubzzle)
- (flags -warn-error +a)
+ (flags -w +a-4-40-42-44-66 -warn-error +a)
  (libraries core cubzzle))
