@@ -28,13 +28,7 @@ let { Coordinate.x = tx; y = ty; z = tz } = Z_shape.size the_shape
 (* les pieces sont donnees sous forme d'une liste de coordonnees *)
 (* (x,y,z) reperant dans l'espace les cubes qui constituent la piece *)
 
-let piece1 = [ 0, 0, 0; 1, 0, 0; 1, 0, 1; 2, 0, 0; 2, 1, 0 ]
-let piece2 = [ 0, 0, 0; 1, 0, 0; 1, 1, 0; 1, 0, 1; 2, 1, 0 ]
-let piece3 = [ 0, 0, 0; 1, 0, 0; 2, 0, 0; 1, 1, 0; 1, 1, 1 ]
-let piece4 = [ 0, 0, 0; 1, 0, 0; 1, 1, 0; 1, 1, 1 ]
-let piece5 = [ 0, 0, 0; 1, 0, 0; 1, 0, 1; 2, 0, 0 ]
-let piece6 = [ 0, 0, 0; 1, 0, 0; 2, 0, 0; 2, 0, 1 ]
-let les_pieces = [ piece1; piece2; piece3; piece4; piece5; piece6 ]
+let les_pieces = Piece.all
 let all = [ 1; 2; 3; 4; 5; 6 ]
 let couleur_piece = [| blue; yellow; red; cyan; green; magenta |]
 let largeur_cube = 60
@@ -216,7 +210,7 @@ let draw_pieces (a, b) =
   let delta_x = largeur_cube / 2 |*. p_profil |*. Float.cos theta_cube
   and delta_y = largeur_cube / 2 |*. p_profil |*. Float.sin theta_cube
   and nb_pieces = Array.length tab_pieces in
-  let dessine_piece n liste_t (a, b) =
+  let dessine_piece n piece (a, b) =
     let rec f_aux liste_t =
       match liste_t with
       | [] -> ()
@@ -227,7 +221,7 @@ let draw_pieces (a, b) =
         draw_cube (xM, yM) (largeur_cube / 2) delta_x delta_y coul;
         f_aux q
     in
-    f_aux liste_t
+    f_aux (Piece.components piece)
   in
   for i = 0 to nb_pieces - 1 do
     dessine_piece i tab_pieces.(i) (a, b - (i * (largeur_cube * 13) / 8))
@@ -436,7 +430,7 @@ let insertion_possible piece (rx, ry, rz) (x0, y0, z0) =
       (match frot tr with
       | a, b, c -> case_libre (a + x0, b + y0, c + z0) && f_aux q)
   in
-  f_aux piece
+  f_aux (Piece.components piece)
 ;;
 
 (* Apres avoir effectue le test, on peut inserer *)
@@ -453,7 +447,7 @@ let insertion piece (rx, ry, rz) (x0, y0, z0) =
         la_boite.tab.(a + x0).(b + y0).(c + z0) <- n;
         f_aux q)
   in
-  f_aux piece;
+  f_aux (Piece.components piece);
   draw_boite cOO all;
   la_boite.id <- n
 ;;
