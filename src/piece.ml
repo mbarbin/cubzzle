@@ -13,12 +13,20 @@ let raw_components =
 let cardinality = Array.length raw_components
 
 module Index = struct
-  type t = int
+  type t = int [@@deriving equal]
 
   let all = List.init cardinality ~f:Fn.id
 end
 
-type t = Index of Index.t [@@deriving enumerate]
+type t = Index of Index.t [@@deriving equal, enumerate]
+
+let to_index (Index index) = index
+
+let of_index_exn index =
+  if not (0 <= index && index < cardinality)
+  then raise_s [%sexp "Index out of bounds", [%here], (index : int)];
+  Index index
+;;
 
 let components (Index i) = raw_components.(i)
 
