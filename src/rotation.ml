@@ -13,7 +13,14 @@ module Description = struct
     ; ry : int
     ; rx : int
     }
-  [@@deriving sexp_of]
+  [@@deriving compare, equal, sexp_of]
+
+  let map t ~f = { rz = f t.rz; ry = f t.ry; rx = f t.rx }
+
+  let inverse t =
+    let inverse r = (4 - r) mod 4 in
+    map t ~f:inverse
+  ;;
 end
 
 (* Given that each axes can take 4 values, and there are 3 axes, the
@@ -71,4 +78,18 @@ let rec apply_n f n x = if n <= 0 then x else apply_n f (pred n) (f x)
 let apply t coordinate =
   let d = description t in
   coordinate |> apply_n rz d.rz |> apply_n ry d.ry |> apply_n rx d.rx
+;;
+
+let identity = of_index_exn 0
+
+let inverse t =
+  let target = description t |> Description.inverse in
+  let rec find i =
+    if i >= cardinality
+    then None
+    else (
+      let t = of_index_exn i in
+      if Description.equal target (description t) then Some t else find (succ i))
+  in
+  find 0
 ;;

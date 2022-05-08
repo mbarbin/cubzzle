@@ -5,6 +5,6 @@ type t =
   ; y : int
   ; z : int
   }
-[@@deriving sexp_of]
+[@@deriving compare, equal, hash, sexp_of]
 
 val add : t -> offset:t -> t

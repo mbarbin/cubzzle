@@ -20,3 +20,9 @@ val of_index_exn : int -> t
 
 (** Apply the given rotation to a set of coordinates. *)
 val apply : t -> Coordinate.t -> Coordinate.t
+
+(** The rotation that maps each coordinate to itself. *)
+val identity : t
+
+(** Build the reciprocal of [t] if available. *)
+val inverse : t -> t option
