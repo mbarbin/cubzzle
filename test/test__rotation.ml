@@ -19,34 +19,3 @@ let%expect_test "zero invariant" =
   [%expect {||}];
   ()
 ;;
-
-let%expect_test "inverse" =
-  for x = 0 to 2 do
-    for y = 0 to 2 do
-      for z = 0 to 2 do
-        let c = { Coordinate.x; y; z } in
-        for rotation = 0 to Rotation.cardinality - 1 do
-          let rotation = Rotation.of_index_exn rotation in
-          let c' = Rotation.apply rotation c in
-          match Rotation.inverse rotation with
-          | None -> print_s [%sexp "Inverse not available", { rotation : Rotation.t }]
-          | Some inverse ->
-            let c'' = Rotation.apply inverse c' in
-            if not (Coordinate.equal c c'')
-            then
-              print_s
-                [%sexp
-                  "Unexpected rotation sequence"
-                  , { c : Coordinate.t
-                    ; c' : Coordinate.t
-                    ; c'' : Coordinate.t
-                    ; rotation : Rotation.t
-                    ; inverse : Rotation.t
-                    }]
-        done
-      done
-    done
-  done;
-  [%expect {||}];
-  ()
-;;
