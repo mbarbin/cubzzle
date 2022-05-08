@@ -171,13 +171,18 @@ let run_cmd =
          (optional_with_default
             Z_shape.Sample.Cube
             (Arg_type.enumerated_sexpable (module Z_shape.Sample)))
-         ~doc:"SHAPE which shape to solve"
+         ~doc:"SHAPE which shape to solve (default Cube)"
        >>| Z_shape.sample
+     and draw_box_during_search =
+       flag
+         "draw-box-during-search"
+         (optional_with_default false bool)
+         ~doc:"bool whether to draw incrementally during search (default false)"
      in
      fun () ->
        let box = Box.create ~goal in
        Graphics.open_graph " 1000x620";
-       match has_solution box ~draw_box_during_search:true with
+       match has_solution box ~draw_box_during_search with
        | false -> print_string "No solution found.\n"
        | true ->
          Box.print_floors box;
