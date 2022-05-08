@@ -41,6 +41,6 @@ module Stack : sig
     -> Push_piece_result.t
 end
 
-(** Print the contents of the box on stdout, layer by layer. This
-   starts by z = 0 and goes on for increasing values of z. *)
-val print_layers : t -> unit
+(** Print the contents of the box on stdout, floor by floor. This
+   starts by the top most floor and goes on for decreasing values of z. *)
+val print_floors : t -> unit

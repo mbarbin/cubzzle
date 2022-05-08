@@ -1,3 +1,3 @@
 open! Core
 
-let () = Cubzzle.Draft.main ()
+let () = Command_unix.run Cubzzle.main

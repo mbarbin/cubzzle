@@ -65,6 +65,15 @@ let sections t =
 ;;
 
 module Sample = struct
+  type t =
+    | Cube
+    | Dog
+    | Tower
+    | Misc_01
+    | Misc_02
+    | Misc_03
+  [@@deriving enumerate, sexp_of]
+
   let cube =
     create
       ~size:{ x = 3; y = 3; z = 3 }
@@ -107,4 +116,15 @@ module Sample = struct
       ~bottom:[| [| 0; 0; 0; 0; 0 |]; [| 0; 0; 0; 0; 0 |] |]
       ~top:[| [| 3; 3; 3; 2; 2 |]; [| 3; 4; 3; 2; 2 |] |]
   ;;
+
+  let sample = function
+    | Cube -> cube
+    | Dog -> dog
+    | Tower -> tower
+    | Misc_01 -> misc_01
+    | Misc_02 -> misc_02
+    | Misc_03 -> misc_03
+  ;;
 end
+
+let sample = Sample.sample

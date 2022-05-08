@@ -12,13 +12,17 @@ val create : size:Size.t -> bottom:int array array -> top:int array array -> t
 val size : t -> Size.t
 
 module Sample : sig
-  val cube : t
-  val dog : t
-  val tower : t
-  val misc_01 : t
-  val misc_02 : t
-  val misc_03 : t
+  type t =
+    | Cube
+    | Dog
+    | Tower
+    | Misc_01
+    | Misc_02
+    | Misc_03
+  [@@deriving enumerate, sexp_of]
 end
+
+val sample : Sample.t -> t
 
 module Z_section : sig
   type t =

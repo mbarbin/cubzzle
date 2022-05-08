@@ -65,8 +65,8 @@ module Stack = struct
   end
 
   let insertion_is_possible t ~piece ~rotation ~offset =
-    List.for_all (Piece.components piece) ~f:(fun (x, y, z) ->
-        let rotated = Rotation.apply rotation { x; y; z } in
+    List.for_all (Piece.components piece) ~f:(fun component ->
+        let rotated = Rotation.apply rotation component in
         is_available t (Coordinate.add rotated ~offset))
   ;;
 
@@ -74,18 +74,18 @@ module Stack = struct
     match insertion_is_possible t ~piece ~rotation ~offset with
     | false -> Push_piece_result.Not_available
     | true ->
-      List.iter (Piece.components piece) ~f:(fun (x, y, z) ->
-          match Rotation.apply rotation { x; y; z } |> Coordinate.add ~offset with
+      List.iter (Piece.components piece) ~f:(fun component ->
+          match Rotation.apply rotation component |> Coordinate.add ~offset with
           | { x; y; z } -> t.contents.(x).(y).(z) <- Some piece);
       Stack.push t.piece_stack piece;
       Push_piece_result.Inserted
   ;;
 end
 
-let print_layers t =
-  for k = 0 to t.size.z - 1 do
+let print_floors t =
+  for k = t.size.z - 1 downto 0 do
     print_string "\n";
-    print_string ("Layer " ^ string_of_int (k + 1) ^ "\n");
+    print_string ("Floor " ^ string_of_int (k + 1) ^ "\n");
     print_string "\n";
     for j = 0 to t.size.y - 1 do
       for i = 0 to t.size.x - 1 do
