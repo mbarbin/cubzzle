@@ -92,18 +92,6 @@ let enleve_elmt e list =
   list := f_aux !list
 ;;
 
-let draw_poly r =
-  let a, b = Graphics.current_point () in
-  let x0, y0 = r.(0) in
-  Graphics.moveto x0 y0;
-  for i = 1 to Array.length r - 1 do
-    let x, y = r.(i) in
-    Graphics.lineto x y
-  done;
-  Graphics.lineto x0 y0;
-  Graphics.moveto a b
-;;
-
 (* on dessine en perspective avec une vue depuis en haut à gauche. *)
 (* luminausité différente sur la face haute, et sur la face gauche *)
 
