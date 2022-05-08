@@ -10,6 +10,7 @@ bug-reports: "https://github.com/mbarbin/cubzzle/issues"
 depends: [
   "ocaml" {>= "4.13.1"}
   "dune" {>= "2.0.0"}
+  "graphics" {> "5.1.2"}
   "base" {>= "v0.15"}
   "core" {>= "v0.15"}
   "ppx_jane" {>= "v0.15"}
