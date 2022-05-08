@@ -20,85 +20,10 @@ open Graphics
 
 (* Dimensions de la boite, relief *)
 
+let the_shape = Z_shape.Sample.cube
+
 (* la boite *)
-let tx, ty, tz = 3, 3, 3
-
-let z_relief =
-  ( [| [| 0; 0; 0 |]; [| 0; 0; 0 |]; [| 0; 0; 0 |] |]
-  , [| [| 3; 3; 3 |]; [| 3; 3; 3 |]; [| 3; 3; 3 |] |] )
-;;
-
-(* Le chien *)
-(*let (tx,ty,tz)=(3,4,5);; 
-let z_relief= ([| 
-	       [|0;1;0|]; 
-	       [|1;1;1|]; 
-               [|0;1;0|]; 
-	       [|0;4;0|] 
-	     |], 
-	       [| 
-		 [|3;4;3|]; 
-		 [|3;3;3|]; 
-		 [|4;5;4|]; 
-		 [|0;5;0|] 
-	       |] );;   
-*)
-
-(* La tour !! *)
-(*let (tx,ty,tz)=(2,2,7);; 
-let z_relief= ( [| 
-     [|0;0|]; 
-     [|0;0|] 
-    |], 
-    [| 
-     [|7;7|]; 
-     [|7;6|] 
-    |] );; 
-*)
-
-(* Divers 01 *)
-(*let (tx,ty,tz)=(3,5,3);; 
-let z_relief= ([| 
-	       [|0;0;0|]; 
-	       [|0;0;0|]; 
-	       [|0;0;0|];
-               [|0;0;0|];
-               [|0;0;0|]
-	     |], 
-	       [| 
-               [|0;2;0|];
-               [|2;2;2|]; 
-               [|3;3;3|]; 
-	       [|3;3;2|];
-               [|0;2;0|] 
-	       |] );; 
-*)
-
-(* Divers 02 *)
-(*let (tx,ty,tz)=(4,3,4);; 
-let z_relief= ([| 
-	       [|0;0;0;0|]; 
-	       [|0;0;0;0|]; 
-	       [|0;0;0;0|]
-	     |], 
-	       [| 
-               [|2;3;4;0|];
-               [|2;3;4;2|]; 
-               [|3;0;2;2|] 
-	       |] );; 
-*)
-
-(* Divers 03 *)
-(*let (tx,ty,tz)=(5,2,4);;
-let z_relief= ([| 
-	       [|0;0;0;0;0|]; 
-	       [|0;0;0;0;0|]
-	     |], 
-	       [| 
-               [|3;3;3;2;2|];
-               [|3;4;3;2;2|]
-	       |] );; 
-*)
+let { Coordinate.x = tx; y = ty; z = tz } = Z_shape.size the_shape
 
 (* les pieces sont donnees sous forme d'une liste de coordonnees *)
 (* (x,y,z) reperant dans l'espace les cubes qui constituent la piece *)
@@ -128,33 +53,6 @@ let cPP = 20, 500
 (*                 LA_BOITE ET LE_RELIEF : VARIABLES GLOBALES                    *)
 (* ==============================================================================*)
 
-(* type relief, relief_factory et cree_relief *)
-
-type inf_sup =
-  { inf : int
-  ; sup : int
-  }
-
-type un_relief = inf_sup array array
-
-let relief_factory () : un_relief =
-  let t = Array.create ~len:tx [||] in
-  for x = 0 to tx - 1 do
-    t.(x) <- Array.create ~len:ty { inf = 0; sup = 0 }
-  done;
-  t
-;;
-
-let cree_relief (tab_inf, tab_sup) =
-  let relief = relief_factory () in
-  for y = 0 to ty - 1 do
-    for x = 0 to tx - 1 do
-      relief.(x).(y) <- { inf = tab_inf.(y).(x); sup = tab_sup.(y).(x) }
-    done
-  done;
-  relief
-;;
-
 (* type boite, et boite_factory *)
 
 type une_boite =
@@ -176,7 +74,7 @@ let boite_factory () =
 (* creation des variables globales : la_boite et le_relief *)
 
 let la_boite = boite_factory ()
-let le_relief = cree_relief z_relief
+let le_relief = Z_shape.sections the_shape
 
 (* ==============================================================================*)
 (*       OUTIL DE DESSIN / Affichage en perspective                              *)
@@ -499,8 +397,8 @@ let in_borne (a, b, c) =
   && a < tx
   && 0 <= b
   && b < ty
-  && le_relief.(a).(b).inf <= c
-  && c < le_relief.(a).(b).sup
+  && le_relief.(a).(b).bottom <= c
+  && c < le_relief.(a).(b).top
 ;;
 
 (* la case est elle libre dans la_boite ?? *)
