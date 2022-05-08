@@ -6,22 +6,18 @@ type t = Graphics.color
 val pieces : t list
 
 module Darken_factor : sig
-  (** A factor to darken a color. *)
-  type t
-
-  (** There's 3 different factors that we use here depending of how
-     much we want to darken the color. The stronger factor leads to
-     the color that is the darkest. *)
-
-  val strong : t
-  val medium : t
-  val light : t
-
-  (** Regrouping all factors in use into a single list. *)
-  val all : t list
+  (** A factor to darken a color. There's 3 different factors that we
+     use here depending of how much we want to darken the color. The
+     stronger factor leads to the color that is the darkest. *)
+  type t =
+    | None
+    | Light
+    | Medium
+    | Strong
+  [@@deriving enumerate]
 end
 
-val darken : t -> Darken_factor.t -> t
+val darken : t -> darken_factor:Darken_factor.t -> t
 
 (** [is_rough_match t1 ~possibly_darkened:t2] returns [true] if [t1]
    and [t2] are the same colors, or if [t2] is a darkened version of

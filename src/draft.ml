@@ -28,9 +28,8 @@ let { Coordinate.x = tx; y = ty; z = tz } = Z_shape.size the_shape
 (* les pieces sont donnees sous forme d'une liste de coordonnees *)
 (* (x,y,z) reperant dans l'espace les cubes qui constituent la piece *)
 
-let les_pieces = Piece.all
+let les_pieces = Array.of_list Piece.all
 let all = [ 1; 2; 3; 4; 5; 6 ]
-let couleur_piece = [| blue; yellow; red; cyan; green; magenta |]
 let largeur_cube = 60
 let pi = Float.acos (-1.)
 let theta_cube = pi /. 4.
@@ -74,39 +73,13 @@ let le_relief = Z_shape.sections the_shape
 (*       OUTIL DE DESSIN / Affichage en perspective                              *)
 (* ==============================================================================*)
 
-let ( $ ) a n =
-  let r = ref 1 in
-  for _ = 1 to n do
-    r := !r * a
-  done;
-  !r
-;;
-
-let from_rgb (c : color) = c / (256 $ 2), c / 256 mod 256, c mod 256
 let ( |*. ) i f = int_of_float (float i *. f)
 
-let couleur_assombrie coul p =
-  let r, g, b = from_rgb coul in
-  rgb (r |*. p) (g |*. p) (b |*. p)
-;;
-
-exception Piece_trouvee of int
-
-let num_piece_of_color coul =
-  let n = Array.length couleur_piece
-  and _t = from_rgb coul in
-  try
-    for i = 0 to n - 1 do
-      for p = 6 to 10 do
-        if coul = couleur_assombrie couleur_piece.(i) (float_of_int p /. 10.)
-        then raise (Piece_trouvee i)
-        else ()
-      done
-    done;
-    0
-  with
-  | Piece_trouvee i -> i + 1
-  | _ -> 0
+let findi_piece_by_color color =
+  List.find_mapi Piece.all ~f:(fun i piece ->
+      if Color.is_rough_match (Piece.color piece) ~possibly_darkened:color
+      then Some (i, piece)
+      else None)
 ;;
 
 let enleve_elmt e list =
@@ -135,15 +108,14 @@ let draw_poly r =
 (* luminausité différente sur la face haute, et sur la face gauche *)
 
 let draw_cube (x, y) largeur delta_x delta_y coul =
-  let _triplet_rgb = from_rgb coul in
   (* face_avant *)
-  set_color (couleur_assombrie coul 0.8);
+  set_color (Color.darken coul ~darken_factor:Light);
   fill_poly [| x, y; x + largeur, y; x + largeur, y + largeur; x, y + largeur; x, y |];
   (* contours *)
   set_color (rgb 60 60 60);
   draw_poly [| x, y; x + largeur, y; x + largeur, y + largeur; x, y + largeur; x, y |];
   (* face haute *)
-  set_color (couleur_assombrie coul 0.6);
+  set_color (Color.darken coul ~darken_factor:Strong);
   fill_poly
     [| x, y + largeur
      ; x + largeur, y + largeur
@@ -161,7 +133,7 @@ let draw_cube (x, y) largeur delta_x delta_y coul =
      ; x, y + largeur
     |];
   (* face gauche *)
-  set_color (couleur_assombrie coul 0.7);
+  set_color (Color.darken coul ~darken_factor:Medium);
   fill_poly
     [| x + largeur, y
      ; x + largeur, y + largeur
@@ -197,7 +169,7 @@ let draw_boite (a, b) list_id =
         then (
           let xM = a - (delta_x * j) + (largeur_cube * i)
           and yM = b - (delta_y * j) + (largeur_cube * k)
-          and coul = couleur_piece.(n - 1) in
+          and coul = Piece.color les_pieces.(n - 1) in
           draw_cube (xM, yM) largeur_cube delta_x delta_y coul)
         else ()
       done
@@ -206,25 +178,24 @@ let draw_boite (a, b) list_id =
 ;;
 
 let draw_pieces (a, b) =
-  let tab_pieces = Array.of_list les_pieces in
   let delta_x = largeur_cube / 2 |*. p_profil |*. Float.cos theta_cube
   and delta_y = largeur_cube / 2 |*. p_profil |*. Float.sin theta_cube
-  and nb_pieces = Array.length tab_pieces in
-  let dessine_piece n piece (a, b) =
+  and nb_pieces = Array.length les_pieces in
+  let dessine_piece piece (a, b) =
+    let color = Piece.color piece in
     let rec f_aux liste_t =
       match liste_t with
       | [] -> ()
       | (i, j, k) :: q ->
         let xM = a - (delta_x * j) + (largeur_cube / 2 * i)
-        and yM = b - (delta_y * j) + (largeur_cube / 2 * k)
-        and coul = couleur_piece.(n) in
-        draw_cube (xM, yM) (largeur_cube / 2) delta_x delta_y coul;
+        and yM = b - (delta_y * j) + (largeur_cube / 2 * k) in
+        draw_cube (xM, yM) (largeur_cube / 2) delta_x delta_y color;
         f_aux q
     in
     f_aux (Piece.components piece)
   in
   for i = 0 to nb_pieces - 1 do
-    dessine_piece i tab_pieces.(i) (a, b - (i * (largeur_cube * 13) / 8))
+    dessine_piece les_pieces.(i) (a, b - (i * (largeur_cube * 13) / 8))
   done
 ;;
 
@@ -539,10 +510,13 @@ let tutoriel () =
       else (
         let c = point_color stat.mouse_x stat.mouse_y in
         set_color c;
-        let num = num_piece_of_color c in
-        if List.mem !idc num ~equal:Int.equal
-        then enleve_elmt num idc
-        else idc := num :: !idc)
+        match findi_piece_by_color c with
+        | None -> ()
+        | Some (i, _) ->
+          let num = i + 1 in
+          if List.mem !idc num ~equal:Int.equal
+          then enleve_elmt num idc
+          else idc := num :: !idc)
     done
   with
   | _ -> ()
@@ -792,7 +766,7 @@ let _chercher_les_solutions liste_pieces =
 (* ==============================================================================*)
 
 (* Pour trouver une solution : *)
-let main () = emboite les_pieces
+let main () = emboite (Array.to_list les_pieces)
 
 (* Pour trouver toutes les solutions exhaustivement avec redondance : *)
 (* emboite_exhaustif les_pieces;; *)
