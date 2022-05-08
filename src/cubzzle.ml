@@ -1,4 +1,6 @@
 open! Core
+module Box = Box
+module Color = Color
 module Z_shape = Z_shape
 
 let pi = Float.acos (-1.)
@@ -91,7 +93,7 @@ let draw_pieces () =
 ;;
 
 (* Run a brute force search to try and insert all puzzle pieces into the box. *)
-let rec search return box = function
+let rec search return box ~draw_box_during_search = function
   | [] -> return.return true
   | piece :: q ->
     let size = Box.size box in
@@ -104,9 +106,11 @@ let rec search return box = function
             match Box.Stack.push_piece box ~piece ~rotation ~offset with
             | Not_available -> ()
             | Inserted ->
-              Graphics.clear_graph ();
-              draw_box box ~shown_pieces:Piece.all;
-              search return box q;
+              if draw_box_during_search
+              then (
+                Graphics.clear_graph ();
+                draw_box box ~shown_pieces:Piece.all);
+              search return box q ~draw_box_during_search;
               Box.Stack.pop_piece box
           done
         done
@@ -114,10 +118,17 @@ let rec search return box = function
     done
 
 (* If a solution is found, it will be in the box by the time this function returns. *)
-and has_solution box =
+and has_solution box ~draw_box_during_search =
   with_return (fun return ->
-      search return box Piece.all;
+      search return box Piece.all ~draw_box_during_search;
       false)
+;;
+
+let solve ~shape =
+  let box = Box.create ~goal:(Z_shape.sample shape) in
+  match has_solution box ~draw_box_during_search:false with
+  | false -> None
+  | true -> Some box
 ;;
 
 (* User UI which allows pieces to be taken out and put back to view how they fit. *)
@@ -166,7 +177,7 @@ let run_cmd =
      fun () ->
        let box = Box.create ~goal in
        Graphics.open_graph " 1000x620";
-       match has_solution box with
+       match has_solution box ~draw_box_during_search:true with
        | false -> print_string "No solution found.\n"
        | true ->
          Box.print_floors box;

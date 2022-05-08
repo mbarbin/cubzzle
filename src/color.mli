@@ -5,6 +5,8 @@ type t = Graphics.color
 (** The color chosen when displaying the puzzle pieces. *)
 val pieces : t list
 
+val to_rgb : t -> int * int * int
+
 module Darken_factor : sig
   (** A factor to darken a color. There's 3 different factors that we
      use here depending of how much we want to darken the color. The

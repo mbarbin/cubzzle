@@ -13,6 +13,8 @@ module Darken_factor = struct
   [@@deriving enumerate]
 end
 
+let to_rgb t = t / (256 * 256), t / 256 mod 256, t mod 256
+
 let darken t ~darken_factor =
   let scale i =
     i
@@ -23,7 +25,7 @@ let darken t ~darken_factor =
       | Strong -> 6)
     / 10
   in
-  let r, g, b = t / (256 * 256), t / 256 mod 256, t mod 256 in
+  let r, g, b = to_rgb t in
   Graphics.rgb (scale r) (scale g) (scale b)
 ;;
 
