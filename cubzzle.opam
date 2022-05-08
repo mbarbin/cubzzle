@@ -12,6 +12,7 @@ depends: [
   "dune" {>= "2.0.0"}
   "graphics" {> "5.1.2"}
   "core" {>= "v0.15"}
+  "core_unix" {>= "v0.15"}
   "ppx_jane" {>= "v0.15"}
 ]
 build: [
