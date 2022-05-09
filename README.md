@@ -1,6 +1,6 @@
 # cubzzle
 
-[![Actions Status](https://github.com/mbarbin/cubzzle/workflows/CI/badge.svg)](https://github.com/mbarbin/cubzzle/actions)
+[![Actions Status](https://github.com/mbarbin/cubzzle/workflows/CI/badge.svg)](https://github.com/mbarbin/cubzzle/actions/workflows/ci.yml)
 [![Deploy odoc Actions Status](https://github.com/mbarbin/cubzzle/workflows/Deploy-odoc/badge.svg)](https://github.com/mbarbin/cubzzle/actions/workflows/deploy-odoc.yml)
 
 This is a toy project implementing a brute force solver for a small
