@@ -19,8 +19,8 @@ jobs:
           dune-cache: true
           opam-repositories: |
             default: https://github.com/ocaml/opam-repository.git
-            janestreet-bleeding: https://ocaml.janestreet.com/opam-repository
-            janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
+#            janestreet-bleeding: https://ocaml.janestreet.com/opam-repository
+#            janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
 
       - name: Deploy odoc to GitHub Pages
         uses: ocaml/setup-ocaml/deploy-doc@v2
