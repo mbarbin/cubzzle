@@ -89,9 +89,9 @@ let draw_pieces () =
   let aux piece (a, b) =
     let color = Piece.color piece in
     List.iter (Piece.components piece) ~f:(fun { x = i; y = j; z = k } ->
-        let xM = a - (delta_x * j) + (cube_width / 2 * i)
-        and yM = b - (delta_y * j) + (cube_width / 2 * k) in
-        draw_cube (xM, yM) ~width:(cube_width / 2) ~delta_x ~delta_y ~color)
+      let xM = a - (delta_x * j) + (cube_width / 2 * i)
+      and yM = b - (delta_y * j) + (cube_width / 2 * k) in
+      draw_cube (xM, yM) ~width:(cube_width / 2) ~delta_x ~delta_y ~color)
   in
   List.iteri Piece.all ~f:(fun i piece -> aux piece (a, b - (i * (cube_width * 13) / 8)))
 ;;
@@ -124,8 +124,8 @@ let rec search return box ~draw_box_during_search = function
 (* If a solution is found, it will be in the box by the time this function returns. *)
 and has_solution box ~draw_box_during_search =
   with_return (fun return ->
-      search return box Piece.all ~draw_box_during_search;
-      false)
+    search return box Piece.all ~draw_box_during_search;
+    false)
 ;;
 
 let solve ~shape =
@@ -140,30 +140,30 @@ let interactive_view box =
   let find_piece_by_color color =
     (* The user may click on any cube faces, which are darkened differently. *)
     List.find Piece.all ~f:(fun piece ->
-        Color.is_rough_match (Piece.color piece) ~possibly_darkened:color)
+      Color.is_rough_match (Piece.color piece) ~possibly_darkened:color)
   in
   let shown_pieces = ref Piece.all in
   with_return (fun return ->
-      while true do
-        Graphics.clear_graph ();
-        draw_box box ~shown_pieces:!shown_pieces;
-        draw_pieces ();
-        Graphics.moveto 300 570;
-        Graphics.draw_string
-          "Click on a piece to take it out or put it back. Press any key to quit.";
-        let stat = Graphics.wait_next_event [ Button_down; Key_pressed ] in
-        if not (Graphics.button_down ())
-        then return.return ()
-        else (
-          let c = Graphics.point_color stat.mouse_x stat.mouse_y in
-          match find_piece_by_color c with
-          | None -> ()
-          | Some piece ->
-            shown_pieces
-              := if List.mem !shown_pieces piece ~equal:Piece.equal
-                 then List.filter !shown_pieces ~f:(fun i -> not (Piece.equal i piece))
-                 else piece :: !shown_pieces)
-      done)
+    while true do
+      Graphics.clear_graph ();
+      draw_box box ~shown_pieces:!shown_pieces;
+      draw_pieces ();
+      Graphics.moveto 300 570;
+      Graphics.draw_string
+        "Click on a piece to take it out or put it back. Press any key to quit.";
+      let stat = Graphics.wait_next_event [ Button_down; Key_pressed ] in
+      if not (Graphics.button_down ())
+      then return.return ()
+      else (
+        let c = Graphics.point_color stat.mouse_x stat.mouse_y in
+        match find_piece_by_color c with
+        | None -> ()
+        | Some piece ->
+          shown_pieces
+            := if List.mem !shown_pieces piece ~equal:Piece.equal
+               then List.filter !shown_pieces ~f:(fun i -> not (Piece.equal i piece))
+               else piece :: !shown_pieces)
+    done)
 ;;
 
 let run_cmd =

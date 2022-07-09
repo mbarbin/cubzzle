@@ -8,7 +8,7 @@ let%expect_test "create" =
        ~bottom:[| [| 0; 0; 0 |]; [| 0; 0; 0 |]; [| 0; 0; 0 |] |]
        ~top:[| [| 3; 3; 3 |]; [| 3; 3; 3 |]; [| 3; 3; 2 |] |]
    with
-  | exception _ -> ()
-  | t -> print_s [%sexp "Unexpected t", (t : Z_shape.t)]);
+   | exception _ -> ()
+   | t -> print_s [%sexp "Unexpected t", (t : Z_shape.t)]);
   [%expect {||}]
 ;;

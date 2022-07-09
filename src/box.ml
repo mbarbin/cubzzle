@@ -66,8 +66,8 @@ module Stack = struct
 
   let insertion_is_possible t ~piece ~rotation ~offset =
     List.for_all (Piece.components piece) ~f:(fun component ->
-        let rotated = Rotation.apply rotation component in
-        is_available t (Coordinate.add rotated ~offset))
+      let rotated = Rotation.apply rotation component in
+      is_available t (Coordinate.add rotated ~offset))
   ;;
 
   let push_piece t ~piece ~rotation ~offset =
@@ -75,8 +75,8 @@ module Stack = struct
     | false -> Push_piece_result.Not_available
     | true ->
       List.iter (Piece.components piece) ~f:(fun component ->
-          match Rotation.apply rotation component |> Coordinate.add ~offset with
-          | { x; y; z } -> t.contents.(x).(y).(z) <- Some piece);
+        match Rotation.apply rotation component |> Coordinate.add ~offset with
+        | { x; y; z } -> t.contents.(x).(y).(z) <- Some piece);
       Stack.push t.piece_stack piece;
       Push_piece_result.Inserted
   ;;

@@ -19,10 +19,10 @@ let darken t ~darken_factor =
   let scale i =
     i
     * (match (darken_factor : Darken_factor.t) with
-      | None -> 10
-      | Light -> 8
-      | Medium -> 7
-      | Strong -> 6)
+       | None -> 10
+       | Light -> 8
+       | Medium -> 7
+       | Strong -> 6)
     / 10
   in
   let r, g, b = to_rgb t in
