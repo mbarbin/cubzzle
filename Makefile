@@ -28,4 +28,4 @@ clean:
 	opam exec -- dune clean
 
 .PHONY: check-all
-check-all: deps all test doc clean lint # fmt ## currently fmt is broken
+check-all: deps all test doc clean lint fmt
