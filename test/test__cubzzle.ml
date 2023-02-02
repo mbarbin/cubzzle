@@ -7,7 +7,7 @@ let%expect_test "solve" =
       (sprintf
          "============== %s =============="
          (Sexp.to_string [%sexp (shape : Z_shape.Sample.t)]));
-    match Cubzzle.solve ~shape with
+    match Cubzzle.solve ~shape ~draw_box_during_search:false with
     | None -> print_endline "No solution"
     | Some box -> Box.print_floors box);
   [%expect

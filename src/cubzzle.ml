@@ -96,12 +96,15 @@ let draw_pieces () =
   List.iteri Piece.all ~f:(fun i piece -> aux piece (a, b - (i * (cube_width * 13) / 8)))
 ;;
 
-(* Run a brute force search to try and insert all puzzle pieces into the box. *)
-let search ~return ~box ~draw_box_during_search =
+(* Run a brute force search to try and insert all puzzle pieces into
+   the box. If a solution is found, it will be in the box by the time
+   this function returns. *)
+let solve ~shape ~draw_box_during_search =
+  let box = Box.create ~goal:(Z_shape.sample shape) in
+  let size = Box.size box in
   let rec aux return = function
-    | [] -> return.return true
+    | [] -> return.return box
     | piece :: q ->
-      let size = Box.size box in
       for x0 = 0 to size.x - 1 do
         for y0 = 0 to size.y - 1 do
           for z0 = 0 to size.z - 1 do
@@ -122,21 +125,7 @@ let search ~return ~box ~draw_box_during_search =
         done
       done
   in
-  aux return Piece.all
-;;
-
-(* If a solution is found, it will be in the box by the time this function returns. *)
-let has_solution box ~draw_box_during_search =
-  with_return (fun return ->
-    search ~return ~box ~draw_box_during_search;
-    false)
-;;
-
-let solve ~shape =
-  let box = Box.create ~goal:(Z_shape.sample shape) in
-  match has_solution box ~draw_box_during_search:false with
-  | false -> None
-  | true -> Some box
+  with_return_option (fun return -> aux return Piece.all)
 ;;
 
 (* User UI which allows pieces to be taken out and put back to view how they fit. *)
@@ -173,14 +162,13 @@ let interactive_view box =
 let run_cmd =
   Command.basic
     ~summary:"run the solver"
-    (let%map_open.Command goal =
+    (let%map_open.Command shape =
        flag
          "shape"
          (optional_with_default
             Z_shape.Sample.Cube
             (Arg_type.enumerated_sexpable (module Z_shape.Sample)))
          ~doc:"SHAPE which shape to solve (default Cube)"
-       >>| Z_shape.sample
      and draw_box_during_search =
        flag
          "draw-box-during-search"
@@ -188,11 +176,10 @@ let run_cmd =
          ~doc:"bool whether to draw incrementally during search (default false)"
      in
      fun () ->
-       let box = Box.create ~goal in
        Graphics.open_graph " 1000x620";
-       match has_solution box ~draw_box_during_search with
-       | false -> print_string "No solution found.\n"
-       | true ->
+       match solve ~shape ~draw_box_during_search with
+       | None -> print_string "No solution found.\n"
+       | Some box ->
          Box.print_floors box;
          Out_channel.flush stdout;
          interactive_view box)
