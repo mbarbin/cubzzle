@@ -97,34 +97,38 @@ let draw_pieces () =
 ;;
 
 (* Run a brute force search to try and insert all puzzle pieces into the box. *)
-let rec search return box ~draw_box_during_search = function
-  | [] -> return.return true
-  | piece :: q ->
-    let size = Box.size box in
-    for x0 = 0 to size.x - 1 do
-      for y0 = 0 to size.y - 1 do
-        for z0 = 0 to size.z - 1 do
-          let offset = { Coordinate.x = x0; y = y0; z = z0 } in
-          for rotation = 0 to Rotation.cardinality - 1 do
-            let rotation = Rotation.of_index_exn rotation in
-            match Box.Stack.push_piece box ~piece ~rotation ~offset with
-            | Not_available -> ()
-            | Inserted ->
-              if draw_box_during_search
-              then (
-                Graphics.clear_graph ();
-                draw_box box ~shown_pieces:Piece.all);
-              search return box q ~draw_box_during_search;
-              Box.Stack.pop_piece box
+let search ~return ~box ~draw_box_during_search =
+  let rec aux return = function
+    | [] -> return.return true
+    | piece :: q ->
+      let size = Box.size box in
+      for x0 = 0 to size.x - 1 do
+        for y0 = 0 to size.y - 1 do
+          for z0 = 0 to size.z - 1 do
+            let offset = { Coordinate.x = x0; y = y0; z = z0 } in
+            for rotation = 0 to Rotation.cardinality - 1 do
+              let rotation = Rotation.of_index_exn rotation in
+              match Box.Stack.push_piece box ~piece ~rotation ~offset with
+              | Not_available -> ()
+              | Inserted ->
+                if draw_box_during_search
+                then (
+                  Graphics.clear_graph ();
+                  draw_box box ~shown_pieces:Piece.all);
+                aux return q;
+                Box.Stack.pop_piece box
+            done
           done
         done
       done
-    done
+  in
+  aux return Piece.all
+;;
 
 (* If a solution is found, it will be in the box by the time this function returns. *)
-and has_solution box ~draw_box_during_search =
+let has_solution box ~draw_box_during_search =
   with_return (fun return ->
-    search return box Piece.all ~draw_box_during_search;
+    search ~return ~box ~draw_box_during_search;
     false)
 ;;
 
