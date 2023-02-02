@@ -21,7 +21,7 @@ let p_profile = 0.8
 let box_offsets box = 500, 300 - ((Box.size box).z * 30)
 let pieces_left_column_offsets = 20, 500
 
-(* scale an int by a float. *)
+(* Scale an int by a float. *)
 let ( |*. ) i f = int_of_float (float i *. f)
 
 (* Draw 3 faces of a cube in perspective to immitate some basic 3D view. *)
