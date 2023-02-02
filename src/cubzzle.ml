@@ -58,6 +58,28 @@ let draw_cube (x, y) ~width ~delta_x ~delta_y ~color =
     |]
 ;;
 
+module Shown_pieces : sig
+  (* A mutable type to indicated which pieces are to be shown in the main drawing area. *)
+  type t
+
+  val all : unit -> t
+  val mem : t -> Piece.t -> bool
+
+  (* The UI allows for the user to click on pieces to switch between displaying or not
+     displaying them. *)
+  val toggle : t -> Piece.t -> unit
+end = struct
+  type t = bool array
+
+  let all () = Array.create ~len:Piece.cardinality true
+  let mem t piece = t.(Piece.to_index piece)
+
+  let toggle t piece =
+    let index = Piece.to_index piece in
+    t.(index) <- not t.(index)
+  ;;
+end
+
 (* Draw the box in the center of the window. Only draw the pieces present in [shown_pieces]. *)
 let draw_box box ~shown_pieces =
   let delta_x = cube_width |*. p_profile |*. Float.cos theta_cube
@@ -70,7 +92,7 @@ let draw_box box ~shown_pieces =
         match Box.contents box { x = i; y = j; z = k } with
         | None -> ()
         | Some piece ->
-          if List.mem shown_pieces piece ~equal:Piece.equal
+          if Shown_pieces.mem shown_pieces piece
           then (
             let xM = a - (delta_x * j) + (cube_width * i)
             and yM = b - (delta_y * j) + (cube_width * k)
@@ -102,6 +124,7 @@ let draw_pieces () =
 let solve ~shape ~draw_box_during_search =
   let box = Box.create ~goal:(Z_shape.sample shape) in
   let size = Box.size box in
+  let shown_pieces = Shown_pieces.all () in
   let rec aux return = function
     | [] -> return.return box
     | piece :: q ->
@@ -117,7 +140,7 @@ let solve ~shape ~draw_box_during_search =
                 if draw_box_during_search
                 then (
                   Graphics.clear_graph ();
-                  draw_box box ~shown_pieces:Piece.all);
+                  draw_box box ~shown_pieces);
                 aux return q;
                 Box.Stack.pop_piece box
             done
@@ -135,11 +158,11 @@ let interactive_view box =
     List.find Piece.all ~f:(fun piece ->
       Color.is_rough_match (Piece.color piece) ~possibly_darkened:color)
   in
-  let shown_pieces = ref Piece.all in
+  let shown_pieces = Shown_pieces.all () in
   with_return (fun return ->
     while true do
       Graphics.clear_graph ();
-      draw_box box ~shown_pieces:!shown_pieces;
+      draw_box box ~shown_pieces;
       draw_pieces ();
       Graphics.moveto 300 570;
       Graphics.draw_string
@@ -148,14 +171,9 @@ let interactive_view box =
       if not (Graphics.button_down ())
       then return.return ()
       else (
-        let c = Graphics.point_color stat.mouse_x stat.mouse_y in
-        match find_piece_by_color c with
+        match Graphics.point_color stat.mouse_x stat.mouse_y |> find_piece_by_color with
         | None -> ()
-        | Some piece ->
-          shown_pieces
-            := if List.mem !shown_pieces piece ~equal:Piece.equal
-               then List.filter !shown_pieces ~f:(fun i -> not (Piece.equal i piece))
-               else piece :: !shown_pieces)
+        | Some piece -> Shown_pieces.toggle shown_pieces piece)
     done)
 ;;
 
