@@ -59,8 +59,7 @@ $ dune exec cubzzle run -- -shape Tower -draw-box-during-search true
 
 ## Motivations
 
-I wanted to have a small project on GitHub that would use the OCaml
-Graphics library, as a code sample.
+I wanted to have a small code sample using OCaml Graphics on GitHub.
 
 ## Code documentation
 
