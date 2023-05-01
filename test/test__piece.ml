@@ -7,7 +7,11 @@ let%expect_test "indices" =
     let index' = Piece.to_index piece in
     assert (Int.equal index index')
   done;
-  [%expect {||}]
+  [%expect {||}];
+  Expect_test_helpers_core.require_does_raise [%here] (fun () ->
+    ignore (Piece.of_index_exn Piece.cardinality : Piece.t));
+  [%expect {| ("Index out of bounds" src/piece.ml:28:45 6) |}];
+  ()
 ;;
 
 let%expect_test "components" =

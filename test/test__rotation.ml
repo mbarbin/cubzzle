@@ -7,7 +7,17 @@ let%expect_test "indices" =
     let index' = Rotation.to_index rotation in
     assert (Int.equal index index')
   done;
-  [%expect {||}]
+  [%expect {||}];
+  Expect_test_helpers_core.require_does_raise [%here] (fun () ->
+    ignore (Rotation.of_index_exn Rotation.cardinality : Rotation.t));
+  [%expect {| ("Index out of bounds" src/rotation.ml:61:45 24) |}];
+  ()
+;;
+
+let%expect_test "sexp_of_t" =
+  let rotation = Rotation.of_index_exn 0 in
+  print_s [%sexp (rotation : Rotation.t)];
+  [%expect {| ((rz 0) (ry 0) (rx 0)) |}]
 ;;
 
 let%expect_test "zero invariant" =

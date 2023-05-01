@@ -13,7 +13,7 @@ module Description = struct
     ; ry : int
     ; rx : int
     }
-  [@@deriving compare, equal, sexp_of]
+  [@@deriving sexp_of]
 end
 
 (* Given that each axes can take 4 values, and there are 3 axes, the total

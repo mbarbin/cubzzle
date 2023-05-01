@@ -1,7 +1,7 @@
 (library
  (name cubzzle_test)
  (flags -warn-error +a)
- (libraries core cubzzle graphics)
+ (libraries core cubzzle graphics expect_test_helpers_core)
  (inline_tests)
  (preprocess
   (pps ppx_jane ppx_js_style -check-doc-comments)))
