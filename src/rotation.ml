@@ -3,11 +3,11 @@ open! Core
 type t = int
 
 module Description = struct
-  (* A rotation is described by the decomposition of its 3 rotations
-     components, along the axes Oz, Oy and Ox.
+  (* A rotation is described by the decomposition of its 3 rotations components,
+     along the axes Oz, Oy and Ox.
 
-     The value associated with each axes represents the number of
-     quarter turns to apply, which may be 0, 1, 2 or 3. *)
+     The value associated with each axes represents the number of quarter turns
+     to apply, which may be 0, 1, 2 or 3. *)
   type t =
     { rz : int
     ; ry : int
@@ -16,10 +16,9 @@ module Description = struct
   [@@deriving compare, equal, sexp_of]
 end
 
-(* Given that each axes can take 4 values, and there are 3 axes, the
-   total number of expanded combination is 4^3=64. In practice it is
-   enough to restrict the set of rotations to the following 24 to
-   avoid redundancy. *)
+(* Given that each axes can take 4 values, and there are 3 axes, the total
+   number of expanded combination is 4^3=64. In practice it is enough to
+   restrict the set of rotations to the following 24 to avoid redundancy. *)
 let rot_n = function
   | 1 -> 0, 0, 0
   | 2 -> 1, 0, 0

@@ -16,8 +16,8 @@ let theta_cube = pi /. 4.
 (* The length of the diagonal edge of the cubes seen in perspective. *)
 let p_profile = 0.8
 
-(* We draw the puzzle pieces to the left column of the window, and the
-   box in the middle. *)
+(* We draw the puzzle pieces to the left column of the window, and the box in
+   the middle. *)
 let box_offsets box = 500, 300 - ((Box.size box).z * 30)
 let pieces_left_column_offsets = 20, 500
 
@@ -65,8 +65,8 @@ module Shown_pieces : sig
   val all : unit -> t
   val mem : t -> Piece.t -> bool
 
-  (* The UI allows for the user to click on pieces to switch between displaying or not
-     displaying them. *)
+  (* The UI allows for the user to click on pieces to switch between displaying
+     or not displaying them. *)
   val toggle : t -> Piece.t -> unit
 end = struct
   type t = bool array
@@ -80,7 +80,8 @@ end = struct
   ;;
 end
 
-(* Draw the box in the center of the window. Only draw the pieces present in [shown_pieces]. *)
+(* Draw the box in the center of the window. Only draw the pieces present in
+   [shown_pieces]. *)
 let draw_box box ~shown_pieces =
   let delta_x = cube_width |*. p_profile |*. Float.cos theta_cube
   and delta_y = cube_width |*. p_profile |*. Float.sin theta_cube in
@@ -118,9 +119,8 @@ let draw_pieces () =
   List.iteri Piece.all ~f:(fun i piece -> aux piece (a, b - (i * (cube_width * 13) / 8)))
 ;;
 
-(* Run a brute force search to try and insert all puzzle pieces into
-   the box. If a solution is found, it will be in the box by the time
-   this function returns. *)
+(* Run a brute force search to try and insert all puzzle pieces into the box. If
+   a solution is found, it will be in the box by the time this function returns. *)
 let solve ~shape ~draw_box_during_search =
   let box = Box.create ~goal:(Z_shape.sample shape) in
   let size = Box.size box in
@@ -151,7 +151,8 @@ let solve ~shape ~draw_box_during_search =
   with_return_option (fun return -> aux return Piece.all)
 ;;
 
-(* User UI which allows pieces to be taken out and put back to view how they fit. *)
+(* User UI which allows pieces to be taken out and put back to view how they
+   fit. *)
 let interactive_view box =
   let find_piece_by_color color =
     (* The user may click on any cube faces, which are darkened differently. *)

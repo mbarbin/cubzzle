@@ -1,9 +1,9 @@
 open! Core
 
-(** Defines the shape that must be assembled, from the heights (z
-   axis) where the pieces start (bottom) and where they end (top). All
-   proposed shapes are such that there is no hole in the middle of a z
-   section, so this representation is suitable. *)
+(** Defines the shape that must be assembled, from the heights (z axis) where
+    the pieces start (bottom) and where they end (top). All proposed shapes are
+    such that there is no hole in the middle of a z section, so this
+    representation is suitable. *)
 type t [@@deriving sexp_of]
 
 (** [bottom] and [top] are expected to index by y first -- such as in [arr.(y).(x)]. *)
