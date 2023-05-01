@@ -9,11 +9,12 @@ doc: "https://github.com/mbarbin/cubzzle"
 bug-reports: "https://github.com/mbarbin/cubzzle/issues"
 depends: [
   "ocaml" {>= "4.13.1"}
-  "dune" {>= "2.0.0"}
+  "dune" {>= "3.0"}
   "graphics" {>= "5.1.2"}
   "core" {>= "v0.15"}
   "core_unix" {>= "v0.15"}
   "ppx_jane" {>= "v0.15"}
+  "ppx_js_style" {>= "v0.15"}
 ]
 build: [
   ["dune" "subst"] {pinned}

@@ -4,4 +4,4 @@
  (libraries core cubzzle graphics)
  (inline_tests)
  (preprocess
-  (pps ppx_jane)))
+  (pps ppx_jane ppx_js_style -check-doc-comments)))
