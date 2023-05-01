@@ -1,6 +1,6 @@
 open! Core
 
-(** The pieces that constitues the puzzle. *)
+(** The pieces that constitutes the puzzle. *)
 type t [@@deriving equal, enumerate]
 
 (** The number of pieces. In this version of the puzzle, that's 6. *)

@@ -24,7 +24,7 @@ let pieces_left_column_offsets = 20, 500
 (* Scale an int by a float. *)
 let ( |*. ) i f = int_of_float (float i *. f)
 
-(* Draw 3 faces of a cube in perspective to immitate some basic 3D view. *)
+(* Draw 3 faces of a cube in perspective to imitate some basic 3D view. *)
 let draw_cube (x, y) ~width ~delta_x ~delta_y ~color =
   let draw_face ~darken_factor points =
     (* Inner face. *)

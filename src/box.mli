@@ -9,7 +9,7 @@ type t
 val create : goal:Z_shape.t -> t
 val size : t -> Size.t
 
-(** Returns [true] if the given cooridinate is inside the box and currently not
+(** Returns [true] if the given coordinate is inside the box and currently not
     occupied by any piece. *)
 val is_available : t -> Coordinate.t -> bool
 
