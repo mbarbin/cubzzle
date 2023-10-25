@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 (** Encoding ways of rotating a piece in space. *)
 

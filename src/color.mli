@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 type t = Graphics.color [@@deriving compare, equal, hash, sexp_of]
 

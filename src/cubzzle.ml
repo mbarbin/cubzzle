@@ -1,4 +1,4 @@
-open! Core
+open! Base
 module Box = Box
 module Color = Color
 module Coordinate = Coordinate
@@ -22,7 +22,7 @@ let box_offsets box = 500, 300 - ((Box.size box).z * 30)
 let pieces_left_column_offsets = 20, 500
 
 (* Scale an int by a float. *)
-let ( |*. ) i f = int_of_float (float i *. f)
+let ( |*. ) i f = Int.of_float (Float.of_int i *. f)
 
 (* Draw 3 faces of a cube in perspective to imitate some basic 3D view. *)
 let draw_cube (x, y) ~width ~delta_x ~delta_y ~color =
@@ -125,7 +125,7 @@ let solve ~shape ~draw_box_during_search =
   let box = Box.create ~goal:(Z_shape.sample shape) in
   let size = Box.size box in
   let shown_pieces = Shown_pieces.all () in
-  let rec aux return = function
+  let rec aux (return : _ With_return.return) = function
     | [] -> return.return box
     | piece :: q ->
       for x0 = 0 to size.x - 1 do
@@ -148,7 +148,7 @@ let solve ~shape ~draw_box_during_search =
         done
       done
   in
-  with_return_option (fun return -> aux return Piece.all)
+  With_return.with_return_option (fun return -> aux return Piece.all)
 ;;
 
 (* User UI which allows pieces to be taken out and put back to view how they
@@ -160,7 +160,7 @@ let interactive_view box =
       Color.is_rough_match (Piece.color piece) ~possibly_darkened:color)
   in
   let shown_pieces = Shown_pieces.all () in
-  with_return (fun return ->
+  With_return.with_return (fun return ->
     while true do
       Graphics.clear_graph ();
       draw_box box ~shown_pieces;
@@ -179,6 +179,7 @@ let interactive_view box =
 ;;
 
 let run_cmd =
+  let open Stdio in
   Command.basic
     ~summary:"run the solver"
     (let%map_open.Command shape =

@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 (** Defines the shape that must be assembled, from the heights (z axis) where
     the pieces start (bottom) and where they end (top). All proposed shapes are

@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 type t =
   { size : Size.t
@@ -83,16 +83,17 @@ module Stack = struct
 end
 
 let print_floors t =
+  let open Stdio in
   for k = t.size.z - 1 downto 0 do
     print_string "\n";
-    print_string ("Floor " ^ string_of_int (k + 1) ^ "\n");
+    print_string ("Floor " ^ Int.to_string (k + 1) ^ "\n");
     print_string "\n";
     for j = 0 to t.size.y - 1 do
       for i = 0 to t.size.x - 1 do
         let value =
           match t.contents.(i).(j).(k) with
           | None -> "0"
-          | Some piece -> string_of_int (Piece.to_index piece + 1)
+          | Some piece -> Int.to_string (Piece.to_index piece + 1)
         in
         print_string value
       done;

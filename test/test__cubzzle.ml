@@ -1,10 +1,11 @@
-open! Core
+open! Base
+open! Stdio
 open! Cubzzle
 
 let%expect_test "solve" =
   List.iter Z_shape.Sample.all ~f:(fun shape ->
     print_endline
-      (sprintf
+      (Printf.sprintf
          "============== %s =============="
          (Sexp.to_string [%sexp (shape : Z_shape.Sample.t)]));
     match Cubzzle.solve ~shape ~draw_box_during_search:false with

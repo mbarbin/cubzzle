@@ -2,7 +2,7 @@
  (name cubzzle)
  (public_name cubzzle)
  (flags -w +a-4-40-41-42-44-66 -warn-error +a)
- (libraries core graphics)
+ (libraries base core.command graphics stdio)
  (instrumentation
   (backend bisect_ppx))
  (preprocess

@@ -1,4 +1,5 @@
-open! Core
+open! Base
+open! Stdio
 open! Cubzzle
 
 let%expect_test "indices" =
@@ -8,7 +9,7 @@ let%expect_test "indices" =
     assert (Int.equal index index')
   done;
   [%expect {||}];
-  Expect_test_helpers_core.require_does_raise [%here] (fun () ->
+  Expect_test_helpers_base.require_does_raise [%here] (fun () ->
     ignore (Piece.of_index_exn Piece.cardinality : Piece.t));
   [%expect {| ("Index out of bounds" src/piece.ml:28:45 6) |}];
   ()

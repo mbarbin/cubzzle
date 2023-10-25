@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 type t = int
 
@@ -65,7 +65,7 @@ let of_index_exn index =
 let rx { Coordinate.x; y; z } = { Coordinate.x; y = -z; z = y }
 let ry { Coordinate.x; y; z } = { Coordinate.x = z; y; z = -x }
 let rz { Coordinate.x; y; z } = { Coordinate.x = -y; y = x; z }
-let rec apply_n f n x = if n <= 0 then x else apply_n f (pred n) (f x)
+let rec apply_n f n x = if n <= 0 then x else apply_n f (Int.pred n) (f x)
 
 let apply t coordinate =
   let d = description t in

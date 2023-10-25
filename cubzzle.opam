@@ -10,6 +10,7 @@ bug-reports: "https://github.com/mbarbin/cubzzle/issues"
 depends: [
   "ocaml" {>= "4.13.1"}
   "dune" {>= "3.0"}
+  "base" {>= "v0.15"}
   "bisect_ppx" {dev & >= "2.8"}
   "graphics" {>= "5.1.2"}
   "core" {>= "v0.15"}
@@ -17,6 +18,7 @@ depends: [
   "expect_test_helpers_core" {with-test & >= "v0.15"}
   "ppx_jane" {>= "v0.15"}
   "ppx_js_style" {>= "v0.15"}
+  "stdio" {>= "v0.15"}
 ]
 build: [
   ["dune" "subst"] {pinned}

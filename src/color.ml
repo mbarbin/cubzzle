@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 type t = int [@@deriving compare, equal, hash, sexp_of]
 
@@ -13,7 +13,7 @@ module Darken_factor = struct
   [@@deriving enumerate]
 end
 
-let to_rgb t = t / (256 * 256), t / 256 mod 256, t mod 256
+let to_rgb t = t / (256 * 256), t / 256 % 256, t % 256
 
 let darken t ~darken_factor =
   let scale i =
