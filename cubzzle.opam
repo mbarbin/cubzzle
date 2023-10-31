@@ -21,7 +21,7 @@ depends: [
   "stdio" {>= "v0.16"}
 ]
 build: [
-  ["dune" "subst"] {dev}
+  ["dune" "subst"]
   [
     "dune"
     "build"
