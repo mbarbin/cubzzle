@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Removed
 
+## [0.0.2] - 2023-10-31
+
+### Fixed
+
+- Make `cubzzle -version` output the package version.
+
 ## [0.0.1] - 2023-08-24
 
 ### Added
