@@ -1,7 +1,3 @@
-open! Base
-open! Stdio
-open! Cubzzle
-
 let%expect_test "solve" =
   List.iter Z_shape.Sample.all ~f:(fun shape ->
     print_endline

@@ -1,7 +1,3 @@
-open! Base
-open! Stdio
-open! Cubzzle
-
 let%expect_test "create" =
   (match
      Z_shape.create

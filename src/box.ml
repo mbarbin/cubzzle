@@ -1,5 +1,3 @@
-open! Base
-
 type t =
   { size : Size.t
   ; z_shape : Z_shape.t

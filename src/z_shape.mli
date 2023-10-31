@@ -1,5 +1,3 @@
-open! Base
-
 (** Defines the shape that must be assembled, from the heights (z axis) where
     the pieces start (bottom) and where they end (top). All proposed shapes are
     such that there is no hole in the middle of a z section, so this

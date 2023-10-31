@@ -1,6 +1,16 @@
 (library
  (name cubzzle_test)
- (flags -warn-error +a)
+ (flags
+  -w
+  +a-4-40-41-42-44-66
+  -warn-error
+  +a
+  -open
+  Base
+  -open
+  Stdio
+  -open
+  Cubzzle)
  (libraries
   base
   cubzzle

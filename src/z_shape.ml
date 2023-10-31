@@ -1,5 +1,3 @@
-open! Base
-
 type t =
   { size : Size.t
   ; bottom : int array array

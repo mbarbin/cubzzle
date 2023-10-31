@@ -1,7 +1,3 @@
-open! Base
-open! Stdio
-open! Cubzzle
-
 let%expect_test "indices" =
   for index = 0 to Piece.cardinality - 1 do
     let piece = Piece.of_index_exn index in
@@ -11,7 +7,7 @@ let%expect_test "indices" =
   [%expect {||}];
   Expect_test_helpers_base.require_does_raise [%here] (fun () ->
     ignore (Piece.of_index_exn Piece.cardinality : Piece.t));
-  [%expect {| ("Index out of bounds" src/piece.ml:28:45 6) |}];
+  [%expect {| ("Index out of bounds" src/piece.ml:26:45 6) |}];
   ()
 ;;
 

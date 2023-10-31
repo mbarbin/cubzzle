@@ -1,5 +1,3 @@
-open! Base
-
 type t = Graphics.color [@@deriving compare, equal, hash, sexp_of]
 
 (** The color chosen when displaying the puzzle pieces. *)

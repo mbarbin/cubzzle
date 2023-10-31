@@ -1,4 +1,3 @@
-open! Base
 module Box = Box
 module Color = Color
 module Coordinate = Coordinate

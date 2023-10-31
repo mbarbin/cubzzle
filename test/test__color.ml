@@ -1,7 +1,3 @@
-open! Base
-open! Stdio
-open! Cubzzle
-
 let%expect_test "darken" =
   let color = Graphics.rgb 25 50 100 in
   let darken ~darken_factor =

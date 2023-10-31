@@ -1,5 +1,3 @@
-open! Base
-
 type t = int [@@deriving compare, equal, hash, sexp_of]
 
 let pieces = Graphics.[ blue; yellow; red; cyan; green; magenta ]

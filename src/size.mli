@@ -1,5 +1,3 @@
-open! Base
-
 type t =
   { x : int
   ; y : int

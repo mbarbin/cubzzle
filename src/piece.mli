@@ -1,5 +1,3 @@
-open! Base
-
 (** The pieces that constitutes the puzzle. *)
 type t [@@deriving equal, enumerate]
 

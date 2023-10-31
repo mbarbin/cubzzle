@@ -1,5 +1,3 @@
-open! Base
-
 (** Encoding ways of rotating a piece in space. *)
 
 type t [@@deriving sexp_of]

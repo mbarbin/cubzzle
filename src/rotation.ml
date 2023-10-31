@@ -1,5 +1,3 @@
-open! Base
-
 type t = int
 
 module Description = struct

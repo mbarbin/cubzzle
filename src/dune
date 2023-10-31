@@ -1,7 +1,7 @@
 (library
  (name cubzzle)
  (public_name cubzzle)
- (flags -w +a-4-40-41-42-44-66 -warn-error +a)
+ (flags -w +a-4-40-41-42-44-66 -warn-error +a -open Base -open Stdio)
  (libraries base core.command graphics stdio)
  (instrumentation
   (backend bisect_ppx))
