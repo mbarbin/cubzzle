@@ -8,7 +8,7 @@ homepage: "https://github.com/mbarbin/cubzzle"
 doc: "https://github.com/mbarbin/cubzzle"
 bug-reports: "https://github.com/mbarbin/cubzzle/issues"
 depends: [
-  "ocaml" {>= "5.0"}
+  "ocaml" {>= "5.1"}
   "dune" {>= "3.11"}
   "base" {>= "v0.16"}
   "bisect_ppx" {dev & >= "2.8"}
