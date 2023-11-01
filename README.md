@@ -4,13 +4,12 @@
 [![Deploy odoc Actions Status](https://github.com/mbarbin/cubzzle/workflows/deploy-odoc/badge.svg)](https://github.com/mbarbin/cubzzle/actions/workflows/deploy-odoc.yml)
 [![Coverage Status](https://coveralls.io/repos/github/mbarbin/cubzzle/badge.svg?branch=master)](https://coveralls.io/github/mbarbin/cubzzle?branch=master)
 
-This is a toy project implementing a brute force solver for a small
-wooden puzzle that I use to have at home.
+This is a toy project implementing a brute force solver for a small wooden
+puzzle that I use to have at home.
 
 ## What's the puzzle ?
 
-There are 6 wooden pieces made of small cubes that can fit into a
-3x3x3 box.
+There are 6 wooden pieces made of small cubes that can fit into a 3x3x3 box.
 
 ![The puzzle](images/puzzle.png)
 
@@ -35,27 +34,35 @@ or a Tower, etc.
 
 ![The tower](images/tower.png)
 
-## Running the code interactively
+## Install
 
-To run the solver in the terminal, make sure you've build first:
+Releases for this project are published to a custom opam-repo. To add it to your
+current opam switch, run:
 
-```bash
-make
+```sh
+opam repo add mbarbin https://github.com/mbarbin/opam-repository.git
 ```
 
-Then run the following command:
+Then you can install `cubzzle` using a normal opam workflow.
 
-```bash
-$ dune exec cubzzle -- run
+```sh
+opam install cubzzle
 ```
 
-A few shapes are available (Cube, Dog, Tower, etc.). To solve a
-different shape, provide the option `-shape`. You can also draw the
-box during the brute force search, to see the solver run through all
-permutations interactively.
+## Running the code
+
+The following command will open an OCaml Graphics window and run the solver:
 
 ```bash
-$ dune exec cubzzle run -- -shape Tower -draw-box-during-search true
+$ cubzzle run
+```
+
+A few shapes are available (Cube, Dog, Tower, etc.). To solve a different shape,
+provide the option `-shape`. You can also draw the box during the brute force
+search, to see the solver run through all permutations interactively.
+
+```bash
+$ cubzzle run -shape Tower -draw-box-during-search true
 ```
 
 ## Motivations
