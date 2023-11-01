@@ -5,7 +5,7 @@ maintainer: "Mathieu Barbin"
 authors: "Mathieu Barbin"
 license: "MIT"
 homepage: "https://github.com/mbarbin/cubzzle"
-doc: "https://github.com/mbarbin/cubzzle"
+doc: "https://mbarbin.github.io/cubzzle/"
 bug-reports: "https://github.com/mbarbin/cubzzle/issues"
 depends: [
   "ocaml" {>= "5.1"}
@@ -21,7 +21,7 @@ depends: [
   "stdio" {>= "v0.16"}
 ]
 build: [
-  ["dune" "subst"]
+  ["dune" "subst"] {pinned}
   [
     "dune"
     "build"
