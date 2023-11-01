@@ -72,5 +72,4 @@ I wanted to have a small code sample using OCaml Graphics on GitHub.
 ## Code documentation
 
 The tip of the master branch is compiled with odoc and published to
-github pages
-[here](https://mbarbin.github.io/cubzzle/odoc/cubzzle/index.html).
+GitHub pages [here](https://mbarbin.github.io/cubzzle/).
