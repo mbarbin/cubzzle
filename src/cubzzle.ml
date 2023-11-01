@@ -195,13 +195,17 @@ let run_cmd =
          ~doc:"bool whether to draw incrementally during search (default false)"
      in
      fun () ->
-       Graphics.open_graph " 1000x620";
-       match solve ~shape ~draw_box_during_search with
-       | None -> print_string "No solution found.\n"
-       | Some box ->
-         Box.print_floors box;
-         Out_channel.flush stdout;
-         interactive_view box)
+       try
+         Graphics.open_graph " 1000x620";
+         Graphics.set_window_title "cubzzle";
+         match solve ~shape ~draw_box_during_search with
+         | None -> print_string "No solution found.\n"
+         | Some box ->
+           Box.print_floors box;
+           Out_channel.flush stdout;
+           interactive_view box
+       with
+       | Graphics.Graphic_failure _ -> ())
 ;;
 
 let main = Command.group ~summary:"cube puzzle solver" [ "run", run_cmd ]

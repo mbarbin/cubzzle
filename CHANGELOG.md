@@ -16,11 +16,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added opam install instruction to the README
+- Added opam install instruction to the README.
 
-### Changed
 ### Fixed
-### Removed
+
+- Allow the user to close the window without raising an uncaught exception
+  `Graphic_failure("fatal I/O error")`, rather simply `exit 0`.
 
 ## [0.0.2] - 2023-10-31
 
