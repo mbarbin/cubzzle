@@ -4,6 +4,8 @@
 
 ### Changed
 
+- Generate opam file from `dune-project`.
+- Use `command-unix-for-opam`.
 - Change changelog format to be closer to dune-release's.
 
 ### Fixed
