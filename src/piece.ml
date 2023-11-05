@@ -23,7 +23,7 @@ let to_index (Index index) = index
 
 let of_index_exn index =
   if not (0 <= index && index < cardinality)
-  then raise_s [%sexp "Index out of bounds", [%here], (index : int)];
+  then raise_s [%sexp "Index out of bounds", { index : int; cardinality : int }];
   Index index
 ;;
 

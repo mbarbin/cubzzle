@@ -10,12 +10,14 @@
   -open
   Stdio
   -open
+  Expect_test_helpers_base
+  -open
   Cubzzle)
  (libraries
   base
   cubzzle
-  graphics
   expect_test_helpers_core.expect_test_helpers_base
+  graphics
   stdio)
  (inline_tests)
  (preprocess

@@ -5,9 +5,13 @@ let%expect_test "indices" =
     assert (Int.equal index index')
   done;
   [%expect {||}];
-  Expect_test_helpers_base.require_does_raise [%here] (fun () ->
+  require_does_raise [%here] (fun () ->
     ignore (Piece.of_index_exn Piece.cardinality : Piece.t));
-  [%expect {| ("Index out of bounds" src/piece.ml:26:45 6) |}];
+  [%expect
+    {|
+    ("Index out of bounds" (
+      (index       6)
+      (cardinality 6))) |}];
   ()
 ;;
 

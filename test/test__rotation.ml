@@ -5,16 +5,23 @@ let%expect_test "indices" =
     assert (Int.equal index index')
   done;
   [%expect {||}];
-  Expect_test_helpers_base.require_does_raise [%here] (fun () ->
+  require_does_raise [%here] (fun () ->
     ignore (Rotation.of_index_exn Rotation.cardinality : Rotation.t));
-  [%expect {| ("Index out of bounds" src/rotation.ml:59:45 24) |}];
+  [%expect
+    {|
+    ("Index out of bounds" (
+      (index       24)
+      (cardinality 24))) |}];
   ()
 ;;
 
 let%expect_test "sexp_of_t" =
   let rotation = Rotation.of_index_exn 0 in
   print_s [%sexp (rotation : Rotation.t)];
-  [%expect {| ((rz 0) (ry 0) (rx 0)) |}]
+  [%expect {|
+    ((rz 0)
+     (ry 0)
+     (rx 0)) |}]
 ;;
 
 let%expect_test "zero invariant" =
