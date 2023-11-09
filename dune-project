@@ -32,19 +32,19 @@
    (and
     :dev
     (>= 2.8)))
-  (graphics
-   (>= 5.1.2))
+  (command-unix-for-opam
+   (>= 0.0.1))
   (core
    (and
     (>= v0.16)
     (< v0.17)))
-  (command-unix-for-opam
-   (>= 0.0.1))
   (expect_test_helpers_core
    (and
     :with-test
     (>= v0.16)
     (< v0.17)))
+  (graphics
+   (>= 5.1.2))
   (ppx_jane
    (and
     (>= v0.16)
