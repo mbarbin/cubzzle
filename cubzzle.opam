@@ -8,8 +8,8 @@ homepage: "https://github.com/mbarbin/cubzzle"
 doc: "https://mbarbin.github.io/cubzzle/"
 bug-reports: "https://github.com/mbarbin/cubzzle/issues"
 depends: [
+  "dune" {>= "3.12"}
   "ocaml" {>= "5.1"}
-  "dune" {>= "3.11" & >= "3.11"}
   "base" {>= "v0.16" & < "v0.17"}
   "bisect_ppx" {dev & >= "2.8"}
   "command-unix-for-opam" {>= "0.0.1"}
