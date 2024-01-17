@@ -18,7 +18,6 @@
 (package
  (name cubzzle)
  (synopsis "Solver for a wooden cube puzzle")
- (description "Solver for a wooden cube puzzle")
  (depends
   (ocaml
    (>= 5.1))
