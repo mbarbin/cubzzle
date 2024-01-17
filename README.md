@@ -1,7 +1,6 @@
 # cubzzle
 
 [![Actions Status](https://github.com/mbarbin/cubzzle/workflows/ci/badge.svg)](https://github.com/mbarbin/cubzzle/actions/workflows/ci.yml)
-[![Deploy odoc Actions Status](https://github.com/mbarbin/cubzzle/workflows/deploy-odoc/badge.svg)](https://github.com/mbarbin/cubzzle/actions/workflows/deploy-odoc.yml)
 [![Coverage Status](https://coveralls.io/repos/github/mbarbin/cubzzle/badge.svg?branch=master)](https://coveralls.io/github/mbarbin/cubzzle?branch=master)
 
 This is a toy project implementing a brute force solver for a small wooden
@@ -71,5 +70,5 @@ I wanted to have a small code sample using OCaml Graphics on GitHub.
 
 ## Code documentation
 
-The tip of the master branch is compiled with odoc and published to
-GitHub pages [here](https://mbarbin.github.io/cubzzle/).
+The code documentation of the latest release is built with `odoc` and published
+to `GitHub` pages [here](https://mbarbin.github.io/cubbzle).
