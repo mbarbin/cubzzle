@@ -1,16 +1,11 @@
-## unreleased
-
-### Added
+## 0.0.4 (2024-01-18)
 
 ### Changed
 
+- Internal changes related to build and release process.
 - Generate opam file from `dune-project`.
 - Use `command-unix-for-opam`.
 - Change changelog format to be closer to dune-release's.
-
-### Fixed
-
-### Removed
 
 ## 0.0.3 (2023-11-01)
 
