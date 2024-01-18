@@ -71,4 +71,4 @@ I wanted to have a small code sample using OCaml Graphics on GitHub.
 ## Code documentation
 
 The code documentation of the latest release is built with `odoc` and published
-to `GitHub` pages [here](https://mbarbin.github.io/cubbzle).
+to `GitHub` pages [here](https://mbarbin.github.io/cubzzle).
