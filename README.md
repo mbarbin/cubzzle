@@ -1,7 +1,7 @@
 # cubzzle
 
 [![Actions Status](https://github.com/mbarbin/cubzzle/workflows/ci/badge.svg)](https://github.com/mbarbin/cubzzle/actions/workflows/ci.yml)
-[![Coverage Status](https://coveralls.io/repos/github/mbarbin/cubzzle/badge.svg?branch=master)](https://coveralls.io/github/mbarbin/cubzzle?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/mbarbin/cubzzle/badge.svg?branch=main)](https://coveralls.io/github/mbarbin/cubzzle?branch=main)
 
 This is a toy project implementing a brute force solver for a small wooden
 puzzle that I use to have at home.
