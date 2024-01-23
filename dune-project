@@ -28,7 +28,7 @@
   (bisect_ppx
    (and
     :dev
-    (>= 2.8)))
+    (>= 2.8.3)))
   (command-unix-for-opam
    (>= 0.0.2))
   (core
