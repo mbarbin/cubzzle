@@ -30,7 +30,7 @@
     :dev
     (>= 2.8)))
   (command-unix-for-opam
-   (>= 0.0.1))
+   (>= 0.0.2))
   (core
    (and
     (>= v0.16)
