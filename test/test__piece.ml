@@ -5,8 +5,7 @@ let%expect_test "indices" =
     assert (Int.equal index index')
   done;
   [%expect {||}];
-  require_does_raise [%here] (fun () ->
-    ignore (Piece.of_index_exn Piece.cardinality : Piece.t));
+  require_does_raise [%here] (fun () : Piece.t -> Piece.of_index_exn Piece.cardinality);
   [%expect
     {|
     ("Index out of bounds" (
