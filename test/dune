@@ -11,15 +11,10 @@
   -open
   Stdio
   -open
-  Expect_test_helpers_base
+  Expect_test_helpers
   -open
   Cubzzle)
- (libraries
-  base
-  cubzzle
-  expect_test_helpers_core.expect_test_helpers_base
-  graphics
-  stdio)
+ (libraries base cubzzle expect-test-helpers graphics stdio)
  (inline_tests)
  (instrumentation
   (backend bisect_ppx))
