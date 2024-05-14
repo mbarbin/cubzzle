@@ -20,7 +20,7 @@
  (synopsis "Solver for a wooden cube puzzle")
  (depends
   (ocaml
-   (>= 5.1))
+   (>= 5.2))
   (base
    (and
     (>= v0.17)
