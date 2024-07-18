@@ -1,11 +1,11 @@
 type t =
   { size : Size.t
-  ; z_shape : Z_shape.t
   ; z_sections : Z_shape.Z_section.t array array
   ; contents : Piece.t option array array array
   ; piece_stack : Piece.t Stack.t
   }
-[@@deriving fields]
+
+let size t = t.size
 
 let create ~goal:z_shape =
   let size = Z_shape.size z_shape in
@@ -15,12 +15,7 @@ let create ~goal:z_shape =
       contents.(i).(j) <- Array.create ~len:size.z None
     done
   done;
-  { size
-  ; z_shape
-  ; z_sections = Z_shape.sections z_shape
-  ; contents
-  ; piece_stack = Stack.create ()
-  }
+  { size; z_sections = Z_shape.sections z_shape; contents; piece_stack = Stack.create () }
 ;;
 
 let in_bound t { Coordinate.x; y; z } =
