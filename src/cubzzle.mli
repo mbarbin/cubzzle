@@ -10,3 +10,4 @@ module Z_shape = Z_shape
 val solve : shape:Z_shape.Sample.t -> draw_box_during_search:bool -> Box.t option
 
 val main : Command.t
+val main2 : unit Climate.Command.t

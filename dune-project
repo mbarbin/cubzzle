@@ -29,6 +29,7 @@
    (and
     :dev
     (>= 2.8.3)))
+  climate
   (command-unix-for-opam
    (>= 0.0.2))
   (core

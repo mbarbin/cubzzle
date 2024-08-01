@@ -1,8 +1,8 @@
-(executable
- (name main)
- (public_name cubzzle)
+(executables
+ (names main main2)
+ (public_names cubzzle cubbzle2)
  (package cubzzle)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
- (libraries command-unix-for-opam cubzzle)
+ (libraries command-unix-for-opam cubzzle climate)
  (instrumentation
   (backend bisect_ppx)))

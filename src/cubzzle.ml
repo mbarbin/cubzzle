@@ -209,3 +209,45 @@ let run_cmd =
 ;;
 
 let main = Command.group ~summary:"cube puzzle solver" [ "run", run_cmd ]
+
+let run_cmd2 =
+  let open Stdio in
+  Climate.Command.singleton
+    ~desc:"run the solver"
+    (let open Climate.Arg_parser in
+     let+ shape =
+       named_with_default
+         ~desc:"which shape to solve (default Cube)"
+         ~value_name:"SHAPE"
+         [ "shape"; "s" ]
+         (enum
+            ~default_value_name:"SHAPE"
+            (List.map Z_shape.Sample.all ~f:(fun shape ->
+               Z_shape.Sample.sexp_of_t shape |> Sexp.to_string, shape))
+            ~eq:Z_shape.Sample.equal)
+         ~default:Z_shape.Sample.Cube
+     and+ draw_box_during_search =
+       named_with_default
+         ~desc:"bool whether to draw incrementally during search (default false)"
+         [ "draw-box-during-search" ]
+         bool
+         ~default:false
+     in
+     try
+       Graphics.open_graph " 1000x620";
+       Graphics.set_window_title "cubzzle";
+       match solve ~shape ~draw_box_during_search with
+       | None -> print_string "No solution found.\n"
+       | Some box ->
+         Box.print_floors box;
+         Out_channel.flush stdout;
+         interactive_view box
+     with
+     | Graphics.Graphic_failure _ -> ())
+;;
+
+let main2 =
+  Climate.Command.group
+    ~desc:"cube puzzle solver"
+    [ Climate.Command.subcommand "run" run_cmd2 ]
+;;

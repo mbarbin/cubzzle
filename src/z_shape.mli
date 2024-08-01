@@ -17,7 +17,7 @@ module Sample : sig
     | Misc_01
     | Misc_02
     | Misc_03
-  [@@deriving enumerate, sexp_of]
+  [@@deriving enumerate, equal, sexp_of]
 end
 
 val sample : Sample.t -> t
