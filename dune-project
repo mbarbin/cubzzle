@@ -30,12 +30,6 @@
     :dev
     (>= 2.8.3)))
   climate
-  (command-unix-for-opam
-   (>= 0.0.2))
-  (core
-   (and
-    (>= v0.17)
-    (< v0.18)))
   (expect-test-helpers
    (and
     :with-test

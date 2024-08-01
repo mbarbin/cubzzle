@@ -11,7 +11,7 @@
   Base
   -open
   Stdio)
- (libraries base climate core.command graphics stdio)
+ (libraries base climate graphics stdio)
  (instrumentation
   (backend bisect_ppx))
  (lint
