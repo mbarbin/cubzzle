@@ -1,1 +1,1 @@
-let () = Command_unix_for_opam.run Cubzzle.main
+let () = Climate.Command.run Cubzzle.main
