@@ -29,12 +29,12 @@
    (and
     :dev
     (>= 2.8.3)))
-  (command-unix-for-opam
-   (>= 0.0.2))
-  (core
-   (and
-    (>= v0.17)
-    (< v0.18)))
+  (cmdliner
+   (= 1.3.0))
+  (commandlang
+   (>= 0.0.1~preview-0.1))
+  (commandlang-to-cmdliner
+   (>= 0.0.1~preview-0.1))
   (expect-test-helpers
    (and
     :with-test

@@ -178,34 +178,32 @@ let interactive_view box =
 ;;
 
 let run_cmd =
-  let open Stdio in
-  Command.basic
+  Command.make
     ~summary:"run the solver"
     (let%map_open.Command shape =
-       flag
-         "shape"
-         (optional_with_default
-            Z_shape.Sample.Cube
-            (Arg_type.enumerated_sexpable (module Z_shape.Sample)))
+       Arg.named_with_default
+         [ "shape" ]
+         (Param.enumerated (module Z_shape.Sample))
+         ~default:Z_shape.Sample.Cube
          ~doc:"SHAPE which shape to solve (default Cube)"
      and draw_box_during_search =
-       flag
-         "draw-box-during-search"
-         (optional_with_default false bool)
+       Arg.named_with_default
+         [ "draw-box-during-search" ]
+         Param.bool
+         ~default:false
          ~doc:"bool whether to draw incrementally during search (default false)"
      in
-     fun () ->
-       try
-         Graphics.open_graph " 1000x620";
-         Graphics.set_window_title "cubzzle";
-         match solve ~shape ~draw_box_during_search with
-         | None -> print_string "No solution found.\n"
-         | Some box ->
-           Box.print_floors box;
-           Out_channel.flush stdout;
-           interactive_view box
-       with
-       | Graphics.Graphic_failure _ -> ())
+     try
+       Graphics.open_graph " 1000x620";
+       Graphics.set_window_title "cubzzle";
+       match solve ~shape ~draw_box_during_search with
+       | None -> print_string "No solution found.\n"
+       | Some box ->
+         Box.print_floors box;
+         Out_channel.flush stdout;
+         interactive_view box
+     with
+     | Graphics.Graphic_failure _ -> ())
 ;;
 
 let main = Command.group ~summary:"cube puzzle solver" [ "run", run_cmd ]

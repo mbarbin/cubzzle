@@ -72,6 +72,12 @@ module Sample = struct
     | Misc_03
   [@@deriving enumerate, sexp_of]
 
+  let to_string t =
+    match sexp_of_t t with
+    | Atom atom -> atom
+    | List _ -> assert false
+  ;;
+
   let cube =
     create
       ~size:{ x = 3; y = 3; z = 3 }

@@ -1,3 +1,9 @@
+## 0.0.9 (2024-08-19)
+
+### Changed
+
+- Switch to using `commandlang` for commands.
+
 ## 0.0.8 (2024-07-26)
 
 ### Added
