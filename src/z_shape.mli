@@ -18,6 +18,8 @@ module Sample : sig
     | Misc_02
     | Misc_03
   [@@deriving enumerate, sexp_of]
+
+  val to_string : t -> string
 end
 
 val sample : Sample.t -> t

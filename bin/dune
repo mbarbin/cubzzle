@@ -3,6 +3,6 @@
  (public_name cubzzle)
  (package cubzzle)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
- (libraries command-unix-for-opam cubzzle)
+ (libraries cmdliner commandlang-to-cmdliner cubzzle)
  (instrumentation
   (backend bisect_ppx)))
