@@ -32,9 +32,9 @@
   (cmdliner
    (= 1.3.0))
   (commandlang
-   (>= 0.0.1~preview-0.1))
+   (>= 0.0.1))
   (commandlang-to-cmdliner
-   (>= 0.0.1~preview-0.1))
+   (>= 0.0.1))
   (expect-test-helpers
    (and
     :with-test
