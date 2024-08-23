@@ -1,5 +1,6 @@
 (library
  (name cubzzle_test)
+ (public_name cubzzle-tests.cubzzle_test)
  (flags
   :standard
   -w
@@ -9,10 +10,14 @@
   -open
   Base
   -open
-  Expect_test_helpers
+  Expect_test_helpers_base
   -open
   Cubzzle)
- (libraries base cubzzle expect-test-helpers graphics)
+ (libraries
+  base
+  cubzzle
+  expect_test_helpers_core.expect_test_helpers_base
+  graphics)
  (inline_tests)
  (instrumentation
   (backend bisect_ppx))

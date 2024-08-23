@@ -1,3 +1,18 @@
+## 0.0.10 (unreleased)
+
+### Added
+
+### Changed
+
+- Upgrade to `commandlang.0.0.2`.
+- Split test package & use `expect_test_helpers_base`.
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
 ## 0.0.9 (2024-08-19)
 
 ### Changed
