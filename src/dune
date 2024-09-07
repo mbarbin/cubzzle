@@ -12,8 +12,8 @@
   -open
   Stdio
   -open
-  Commandlang)
- (libraries base commandlang graphics stdio)
+  Cmdlang)
+ (libraries base cmdlang graphics stdio)
  (instrumentation
   (backend bisect_ppx))
  (lint
