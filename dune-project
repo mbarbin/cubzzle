@@ -26,9 +26,11 @@
     (>= v0.17)
     (< v0.18)))
   (cmdlang
-   (>= 0.0.4))
+   (>= 0.0.5))
+  (cmdlang-cmdliner-runner
+   (>= 0.0.5))
   (cmdlang-to-cmdliner
-   (>= 0.0.4))
+   (>= 0.0.5))
   (cmdliner
    (= 1.3.0))
   (graphics
@@ -91,9 +93,11 @@
     :with-dev-setup
     (>= 2.8.3)))
   (cmdlang
-   (>= 0.0.4))
+   (>= 0.0.5))
+  (cmdlang-cmdliner-runner
+   (>= 0.0.5))
   (cmdlang-to-cmdliner
-   (>= 0.0.4))
+   (>= 0.0.5))
   (cmdliner
    (= 1.3.0))
   (expect_test_helpers_core
