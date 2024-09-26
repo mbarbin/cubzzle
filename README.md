@@ -3,8 +3,7 @@
 [![CI Status](https://github.com/mbarbin/cubzzle/workflows/ci/badge.svg)](https://github.com/mbarbin/cubzzle/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/github/mbarbin/cubzzle/badge.svg?branch=main)](https://coveralls.io/github/mbarbin/cubzzle?branch=main)
 
-This is a toy project implementing a brute force solver for a small wooden
-puzzle that I use to have at home.
+This is a toy project implementing a brute force solver for a small wooden puzzle that I use to have at home.
 
 ## What's the puzzle ?
 
@@ -18,8 +17,7 @@ The solver finds a solution and displays it in a Graphics window.
 
 ![The cube](images/cube.png)
 
-So that one can see exactly how the pieces fit, the display allows for
-inspecting pieces individually.
+So that one can see exactly how the pieces fit, the display allows for inspecting pieces individually.
 
 ![The cube help](images/cube-help.png)
 
@@ -35,8 +33,7 @@ or a Tower, etc.
 
 ## Install
 
-Releases for this project are published to a custom opam-repo. To add it to your
-current opam switch, run:
+Releases for this project are published to a custom opam-repo. To add it to your current opam switch, run:
 
 ```sh
 opam repo add mbarbin https://github.com/mbarbin/opam-repository.git
@@ -56,9 +53,7 @@ The following command will open an OCaml Graphics window and run the solver:
 $ cubzzle run
 ```
 
-A few shapes are available (Cube, Dog, Tower, etc.). To solve a different shape,
-provide the option `-shape`. You can also draw the box during the brute force
-search, to see the solver run through all permutations interactively.
+A few shapes are available (Cube, Dog, Tower, etc.). To solve a different shape, provide the option `-shape`. You can also draw the box during the brute force search, to see the solver run through all permutations interactively.
 
 ```bash
 $ cubzzle run -shape Tower -draw-box-during-search true
@@ -70,5 +65,4 @@ I wanted to have a small code sample using OCaml Graphics on GitHub.
 
 ## Code Documentation
 
-The code documentation of the latest release is built with `odoc` and published
-to `GitHub` pages [here](https://mbarbin.github.io/cubzzle).
+The code documentation of the latest release is built with `odoc` and published to `GitHub` pages [here](https://mbarbin.github.io/cubzzle).
