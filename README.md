@@ -68,7 +68,7 @@ $ cubzzle run -shape Tower -draw-box-during-search true
 
 I wanted to have a small code sample using OCaml Graphics on GitHub.
 
-## Code documentation
+## Code Documentation
 
 The code documentation of the latest release is built with `odoc` and published
 to `GitHub` pages [here](https://mbarbin.github.io/cubzzle).
