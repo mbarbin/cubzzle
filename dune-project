@@ -32,7 +32,7 @@
   (cmdlang-to-cmdliner
    (>= 0.0.5))
   (cmdliner
-   (= 1.3.0))
+   (>= 1.3.0))
   (graphics
    (>= 5.1.2))
   (ppx_compare
@@ -99,7 +99,7 @@
   (cmdlang-to-cmdliner
    (>= 0.0.5))
   (cmdliner
-   (= 1.3.0))
+   (>= 1.3.0))
   (cubzzle
    (= :version))
   (expect_test_helpers_core
