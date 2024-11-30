@@ -15,6 +15,8 @@
 
 (documentation "https://mbarbin.github.io/cubzzle/")
 
+(implicit_transitive_deps false)
+
 (package
  (name cubzzle)
  (synopsis "Solver for a wooden cube puzzle")
