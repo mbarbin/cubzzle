@@ -18,7 +18,8 @@ let%expect_test "indices" =
 let%expect_test "sexp_of_t" =
   let rotation = Rotation.of_index_exn 0 in
   print_s [%sexp (rotation : Rotation.t)];
-  [%expect {|
+  [%expect
+    {|
     ((rz 0)
      (ry 0)
      (rx 0)) |}]
