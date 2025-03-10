@@ -29,14 +29,10 @@
     (< v0.18)))
   (cmdlang
    (>= 0.0.9))
-  (cmdlang-cmdliner-runner
-   (>= 0.0.8))
-  (cmdlang-to-cmdliner
-   (>= 0.0.9))
-  (cmdliner
-   (>= 1.3.0))
   (graphics
    (>= 5.1.2))
+  (pplumbing
+   (>= 0.0.9))
   (ppx_compare
    (and
     (>= v0.17)
@@ -96,12 +92,6 @@
     (>= 2.8.3)))
   (cmdlang
    (>= 0.0.9))
-  (cmdlang-cmdliner-runner
-   (>= 0.0.8))
-  (cmdlang-to-cmdliner
-   (>= 0.0.9))
-  (cmdliner
-   (>= 1.3.0))
   (cubzzle
    (= :version))
   (expect_test_helpers_core
@@ -110,6 +100,8 @@
     (< v0.18)))
   (graphics
    (>= 5.1.2))
+  (pplumbing
+   (>= 0.0.9))
   (ppx_compare
    (and
     (>= v0.17)
