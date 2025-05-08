@@ -32,7 +32,7 @@
   (graphics
    (>= 5.1.2))
   (pplumbing
-   (>= 0.0.9))
+   (>= 0.0.12))
   (ppx_compare
    (and
     (>= v0.17)
@@ -101,7 +101,7 @@
   (graphics
    (>= 5.1.2))
   (pplumbing
-   (>= 0.0.9))
+   (>= 0.0.12))
   (ppx_compare
    (and
     (>= v0.17)
