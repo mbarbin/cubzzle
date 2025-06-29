@@ -5,4 +5,4 @@
 
 (repository
  (name mbarbin)
- (source "git+https://github.com/mbarbin/opam-repository.git"))
+ (url "git+https://github.com/mbarbin/opam-repository.git"))
