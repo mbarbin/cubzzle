@@ -1,6 +1,12 @@
 name: Build and test with dune-pkg
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**" # This will match pull requests targeting any branch
 
 jobs:
   build:
