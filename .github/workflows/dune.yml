@@ -1,0 +1,37 @@
+name: dune-pkg build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**" # This will match pull requests targeting any branch
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        runs-on: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.runs-on }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup dune
+        id: setup-dune
+        uses: mbarbin/setup-dune@aaee45487d3d2372d8ac3da72d25e42f4d7091be # combined-changes
+        with:
+          automagic: false
+
+      - name: Build project
+        shell: bash
+        run: |
+          dune build @all @runtest
+
+      - name: Save dune cache
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ steps.dune-cache.outputs.dune-cache-root }}
+          key: ${{ steps.dune-cache.outputs.cache-primary-key }}
