@@ -15,4 +15,12 @@ jobs:
       - name: Use dune
         uses: ocaml-dune/setup-dune@v0
         with:
-          automagic: true
+          automagic: false
+      - name: Build project
+        shell: bash
+        run: |
+          dune build
+      - name: Run tests
+        shell: bash
+        run: |
+          dune runtest
