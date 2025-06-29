@@ -31,12 +31,19 @@ jobs:
       - name: Build project
         id: build_step
         shell: bash
-        continue-on-error: true
         run: |
-          dune build
+          if dune build; then
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "status=failure" >> $GITHUB_OUTPUT
+          fi
       - name: Run tests
+        id: test_step
         shell: bash
-        continue-on-error: true
-        if: ${{ steps.build_step.conclusion == 'success' }}
+        if: steps.build_step.outputs.status == 'success'
         run: |
-          dune runtest
+          if dune runtest; then
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "status=failure" >> $GITHUB_OUTPUT
+          fi
