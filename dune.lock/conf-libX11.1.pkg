@@ -1,0 +1,71 @@
+(version 1)
+
+(build
+ (choice
+  ((((arch x86_64)
+     (os linux))
+    ((arch arm64)
+     (os linux)))
+   ((action
+     (run pkg-config x11))))
+  ((((arch x86_64)
+     (os macos))
+    ((arch arm64)
+     (os macos)))
+   ((action
+     (run
+      sh
+      -exc
+      "PKG_CONFIG_PATH=\"$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig:/opt/X11/share/pkgconfig\" pkg-config --libs x11"))))))
+
+(depends
+ (choice
+  ((((arch x86_64)
+     (os linux))
+    ((arch arm64)
+     (os linux))
+    ((arch x86_64)
+     (os macos))
+    ((arch arm64)
+     (os macos)))
+   (conf-pkg-config))))
+
+(depexts
+ ((libx11-dev)
+  (or_absorb_undefined_var
+   (= %{os_family} debian)
+   (= %{os_family} ubuntu)))
+ ((libX11-devel)
+  (or_absorb_undefined_var
+   (= %{os_distribution} centos)
+   (= %{os_distribution} ol)
+   (= %{os_family} fedora)
+   (= %{os_family} suse)
+   (= %{os_family} opensuse)))
+ ((libx11-dev)
+  (= %{os_distribution} alpine))
+ ((libx11)
+  (= %{os_distribution} arch))
+ ((libX11-dev)
+  (= %{os} cygwin))
+ ((xquartz)
+  (and_absorb_undefined_var
+   (= %{os} macos)
+   (= %{os_distribution} homebrew)))
+ ((xorg-libX11)
+  (and_absorb_undefined_var
+   (= %{os} macos)
+   (= %{os_distribution} macports)))
+ ((libX11)
+  (= %{os} freebsd)))
+
+(enabled_on_platforms
+ (only
+  ((arch x86_64)
+   (os linux))
+  ((arch arm64)
+   (os linux))
+  ((arch x86_64)
+   (os macos))
+  ((arch arm64)
+   (os macos))))

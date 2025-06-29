@@ -14,23 +14,16 @@
   ((source
     https://github.com/mbarbin/opam-repository.git#c53f732d41d2bcbbbea29a99898bc765155f822f))))
 
-(expanded_solver_variable_bindings
- (variable_values
-  (with-doc false)
-  (with-dev-setup false)
-  (sys-ocaml-version 5.3.0)
-  (post true)
-  (os-version 24.04)
-  (os-family debian)
-  (os-distribution ubuntu)
-  (os linux)
-  (opam-version 2.2.0~alpha-vendored)
-  (arch x86_64))
- (unset_variables
-  with-test
-  sys-ocaml-libc
-  sys-ocaml-cc
-  sys-ocaml-arch
-  enable-ocaml-beta-repository
-  dev
-  build))
+(solved_for_platforms
+ ((arch x86_64)
+  (os linux))
+ ((arch arm64)
+  (os linux))
+ ((arch x86_64)
+  (os macos))
+ ((arch arm64)
+  (os macos))
+ ((arch x86_64)
+  (os win32))
+ ((arch arm64)
+  (os win32)))
