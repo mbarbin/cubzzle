@@ -1,4 +1,4 @@
-(version 0.0.5)
+(version 0.0.9)
 
 (build
  (progn
@@ -12,6 +12,6 @@
 (source
  (fetch
   (url
-   https://github.com/mbarbin/cmdlang/releases/download/0.0.5/cmdlang-0.0.5.tbz)
+   https://github.com/mbarbin/cmdlang/releases/download/0.0.9/cmdlang-0.0.9.tbz)
   (checksum
-   sha256=16d1419ccc6a53c3373ef9dce019e5d7692c41e46e674ef4bd201a90fdaac200)))
+   sha256=44fc0027cc27a8d6b511bbde81b0d31306ec1a3d599476d5bd058510f39e87ef)))

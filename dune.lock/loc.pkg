@@ -1,4 +1,4 @@
-(version 0.2.0)
+(version 0.3.0)
 
 (build
  (progn
@@ -11,6 +11,6 @@
 
 (source
  (fetch
-  (url https://github.com/mbarbin/loc/releases/download/0.2.0/loc-0.2.0.tbz)
+  (url https://github.com/mbarbin/loc/releases/download/0.3.0/loc-0.3.0.tbz)
   (checksum
-   sha256=30e0468f1a2876accef1aacf8441faac88fa64feb8653a1496c47dd56a8aff29)))
+   sha256=229057d359003a220d3b4dcb93a955ac5037c96067fa7df9fd7c1b53cd47fc21)))

@@ -1,0 +1,31 @@
+(version 0.0.14)
+
+(build
+ (progn
+  (when
+   %{pkg-self:dev}
+   (run dune subst))
+  (run dune build -p %{pkg-self:name} -j %{jobs} @install)))
+
+(depends
+ dune
+ ocaml
+ cmdlang
+ cmdlang-to-cmdliner
+ cmdliner
+ dyn
+ fmt
+ loc
+ logs
+ ordering
+ parsexp
+ pp
+ sexplib0
+ stdune)
+
+(source
+ (fetch
+  (url
+   https://github.com/mbarbin/pplumbing/releases/download/0.0.14/pplumbing-0.0.14.tbz)
+  (checksum
+   sha256=ed7eaba180378a59719e9af63ccdc89dde8e0a20f2cba420abb0080b0bc4a868)))

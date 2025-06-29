@@ -1,0 +1,8 @@
+(version 1)
+
+(build
+ (run pkg-config xft))
+
+(depends conf-pkg-config conf-libX11)
+
+(depexts libxft-dev)

@@ -1,4 +1,4 @@
-(version v0.17.0)
+(version v0.17.1)
 
 (build
  (run dune build -p %{pkg-self:name} -j %{jobs}))
@@ -8,6 +8,5 @@
 (source
  (fetch
   (url
-   https://github.com/janestreet/typerep/archive/refs/tags/v0.17.0.tar.gz)
-  (checksum
-   sha256=ff8268f46f447bbc95dac29a50f465625646b213e3a9638f4d773b9e17b650e8)))
+   https://github.com/janestreet/typerep/archive/refs/tags/v0.17.1.tar.gz)
+  (checksum md5=1123cda36764ea0a286af25308d1c3e4)))
