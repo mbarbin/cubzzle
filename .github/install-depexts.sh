@@ -6,7 +6,9 @@ set -euo pipefail
 
 : "${RUNNER_OS:?RUNNER_OS must be set}"
 
-DEPEXT_LIST=$(dune show depexts || true)
+# CR mbarbin: There is something not working with `dune show depexts` even when
+# called with the option to capture its output. Let's capture both for now.
+DEPEXT_LIST="$(dune show depexts 2>&1)"
 if [ -z "$DEPEXT_LIST" ]; then
   echo "[setup-dune] No depexts to install."
   exit 0
