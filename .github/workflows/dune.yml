@@ -24,6 +24,7 @@ jobs:
         uses: mbarbin/setup-dune@aaee45487d3d2372d8ac3da72d25e42f4d7091be # combined-changes
         with:
           automagic: false
+          install-depexts: true
 
       - name: Build project
         shell: bash
