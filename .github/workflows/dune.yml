@@ -21,7 +21,7 @@ jobs:
 
       - name: Setup dune
         id: setup-dune
-        uses: mbarbin/setup-dune@aaee45487d3d2372d8ac3da72d25e42f4d7091be # combined-changes
+        uses: mbarbin/setup-dune@765b560fca5f231bd2bca3bbb7c9dbc89add38ab # merge.3
         with:
           automagic: false
           install-depexts: true
@@ -29,10 +29,18 @@ jobs:
       - name: Build project
         shell: bash
         run: |
-          dune build @all @runtest -p cubzzle
+          dune build cubzzle.install
+
+      # CR mbarbin: There is an issue here because this step fails with:
+      #
+      # > Failed to save: Unable to reserve cache with key dune-cache-Linux-X64,
+      # > another job may be creating this cache. Warning: Cache save failed.
+      #
+      # We should look into the documentation of actions/cache/save next as it
+      # would seem I'm not using this quite how it's intended to work.
 
       - name: Save dune cache
         uses: actions/cache/save@v4
         with:
           path: ${{ steps.dune-cache.outputs.dune-cache-root }}
-          key: ${{ steps.dune-cache.outputs.cache-primary-key }}
+          key: ${{ steps.dune-cache.outputs.dune-cache-primary-key }}
