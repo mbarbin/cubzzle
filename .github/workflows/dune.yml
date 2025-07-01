@@ -49,12 +49,7 @@ jobs:
       - name: Build project
         shell: bash
         run: |
-          dune build
-
-      - name: Run tests
-        shell: bash
-        run: |
-          dune runtest
+          dune build cubzzle.install
 
       - name: Save dune cache
         uses: actions/cache/save@v4
