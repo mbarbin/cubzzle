@@ -43,5 +43,5 @@ jobs:
       - name: Save dune cache
         uses: actions/cache/save@v4
         with:
-          path: ${{ steps.dune-cache.outputs.dune-cache-root }}
-          key: ${{ steps.dune-cache.outputs.dune-cache-primary-key }}
+          path: ${{ steps.setup-dune.outputs.dune-cache-root }}
+          key: ${{ steps.setup-dune.outputs.dune-cache-primary-key }}
