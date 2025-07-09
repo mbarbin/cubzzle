@@ -12,14 +12,14 @@ jobs:
   build:
     strategy:
       matrix:
-        runs-on: [ubuntu-latest, macos-latest]
+        runs-on: [ubuntu-latest, macos-latest, macos-13]
     runs-on: ${{ matrix.runs-on }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install and setup dune
+      - name: Setup dune
         id: setup-dune
         shell: bash
         run: |
@@ -38,9 +38,27 @@ jobs:
         if: runner.os == 'macOS'
         shell: bash
         run: |
+          set -e
           brew update
           brew install gpatch
-          echo "/opt/homebrew/opt/gpatch/libexec/gnubin" >> $GITHUB_PATH
+          brew update
+          brew install gpatch
+          # Apple Silicon (macos-latest, macos-14)
+          if [ -d "/opt/homebrew/opt/gpatch/libexec/gnubin" ]; then
+            GPATCH_GNUBIN="/opt/homebrew/opt/gpatch/libexec/gnubin"
+          # Intel (macos-13)
+          elif [ -d "/usr/local/opt/gpatch/libexec/gnubin" ]; then
+            GPATCH_GNUBIN="/usr/local/opt/gpatch/libexec/gnubin"
+          else
+            echo "::error::gpatch gnubin directory not found!"
+            exit 1
+          fi
+          DIR_CONTENTS="$(ls -l "$GPATCH_GNUBIN")"
+          while IFS= read -r line; do
+            echo "::debug::$line"
+          done <<< "$DIR_CONTENTS"
+          echo "$GPATCH_GNUBIN" >> $GITHUB_PATH
+          patch --version
 
       - name: Resolve dependencies
         shell: bash
