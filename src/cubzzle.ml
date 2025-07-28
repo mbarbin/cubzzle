@@ -179,19 +179,20 @@ let interactive_view box =
 
 let run_cmd =
   Command.make
-    ~summary:"run the solver"
+    ~summary:"Run the solver."
     (let%map_open.Command shape =
        Arg.named_with_default
          [ "shape" ]
          (Param.enumerated (module Z_shape.Sample))
          ~default:Z_shape.Sample.Cube
-         ~doc:"SHAPE which shape to solve (default Cube)"
+         ~docv:"SHAPE"
+         ~doc:"Specify which shape to solve."
      and draw_box_during_search =
        Arg.named_with_default
          [ "draw-box-during-search" ]
          Param.bool
          ~default:false
-         ~doc:"bool whether to draw incrementally during search (default false)"
+         ~doc:"Specify whether to draw incrementally during search."
      in
      try
        Graphics.open_graph " 1000x620";
@@ -206,4 +207,4 @@ let run_cmd =
      | Graphics.Graphic_failure _ -> ())
 ;;
 
-let main = Command.group ~summary:"cube puzzle solver" [ "run", run_cmd ]
+let main = Command.group ~summary:"Cube puzzle solver." [ "run", run_cmd ]
