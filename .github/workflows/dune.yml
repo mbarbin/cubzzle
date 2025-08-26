@@ -1,0 +1,26 @@
+name: Build and test with setup-dune
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**" # This will match pull requests targeting any branch
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        runs-on: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.runs-on }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup dune
+        id: setup-dune
+        uses: mbarbin/setup-dune@e85e050b9cb7c4df837686a4fa5569c90568fb3c # https://github.com/ocaml-dune/setup-dune/pull/9
+        with:
+          automagic: true
