@@ -15,6 +15,23 @@ let number_of_cubes t =
   !count
 ;;
 
+exception
+  Unexpected_count of
+    { expected : int
+    ; count : int
+    }
+
+let () =
+  Sexplib0.Sexp_conv.Exn_converter.add [%extension_constructor Unexpected_count] (function
+    | Unexpected_count { expected; count } ->
+      List
+        [ Atom "Z_shape.Unexpected_cound"
+        ; List [ Atom "expected"; Atom (Int.to_string expected) ]
+        ; List [ Atom "count"; Atom (Int.to_string count) ]
+        ]
+    | _ -> assert false)
+;;
+
 let invariant t =
   assert (t.size.x > 0);
   assert (t.size.y > 0);
@@ -31,7 +48,8 @@ let invariant t =
     done
   done;
   let count = number_of_cubes t in
-  if count <> 27 then raise_s [%sexp "Unexpected count", { expected = 27; count : int }]
+  let expected = 27 in
+  if count <> expected then raise (Unexpected_count { expected; count })
 ;;
 
 let create ~size ~bottom ~top =

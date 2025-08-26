@@ -1,3 +1,13 @@
+## 0.0.12 (unreleased)
+
+### Changed
+
+- Use internal exception instead of `raise_s`.
+
+### Removed
+
+- Remove some unused ppx dependencies.
+
 ## 0.0.11 (2024-09-29)
 
 ### Changed

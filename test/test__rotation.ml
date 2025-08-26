@@ -9,9 +9,11 @@ let%expect_test "indices" =
     Rotation.of_index_exn Rotation.cardinality);
   [%expect
     {|
-    ("Index out of bounds" (
+    (Rotation.Index_out_of_bounds
       (index       24)
-      (cardinality 24))) |}];
+      (lower_bound 0)
+      (upper_bound 23))
+    |}];
   ()
 ;;
 
