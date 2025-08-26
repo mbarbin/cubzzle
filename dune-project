@@ -68,8 +68,6 @@
    (>= v0.17))
   (ppx_expect
    (>= v0.17))
-  (ppx_fields_conv
-   (>= v0.17))
   (ppx_hash
    (>= v0.17))
   (ppx_here
@@ -118,8 +116,6 @@
   (ppx_enumerate
    (>= v0.17))
   (ppx_expect
-   (>= v0.17))
-  (ppx_fields_conv
    (>= v0.17))
   (ppx_hash
    (>= v0.17))
