@@ -21,9 +21,36 @@ type t = Index of Index.t [@@deriving equal, enumerate]
 
 let to_index (Index index) = index
 
-let of_index_exn index =
+exception
+  Index_out_of_bounds of
+    { index : int
+    ; lower_bound : int
+    ; upper_bound : int
+    }
+
+let () =
+  Sexplib0.Sexp_conv.Exn_converter.add
+    [%extension_constructor Index_out_of_bounds]
+    (function
+    | Index_out_of_bounds { index; lower_bound; upper_bound } ->
+      List
+        [ Atom "Piece.Index_out_of_bounds"
+        ; List [ Atom "index"; Atom (Int.to_string index) ]
+        ; List [ Atom "lower_bound"; Atom (Int.to_string lower_bound) ]
+        ; List [ Atom "upper_bound"; Atom (Int.to_string upper_bound) ]
+        ]
+    | _ -> assert false)
+;;
+
+let check_index_exn index =
   if not (0 <= index && index < cardinality)
-  then raise_s [%sexp "Index out of bounds", { index : int; cardinality : int }];
+  then
+    raise
+      (Index_out_of_bounds { index : int; lower_bound = 0; upper_bound = cardinality - 1 })
+;;
+
+let of_index_exn index =
+  check_index_exn index;
   Index index
 ;;
 

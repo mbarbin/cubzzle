@@ -8,9 +8,11 @@ let%expect_test "indices" =
   require_does_raise [%here] (fun () : Piece.t -> Piece.of_index_exn Piece.cardinality);
   [%expect
     {|
-    ("Index out of bounds" (
+    (Piece.Index_out_of_bounds
       (index       6)
-      (cardinality 6))) |}];
+      (lower_bound 0)
+      (upper_bound 5))
+    |}];
   ()
 ;;
 
