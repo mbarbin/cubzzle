@@ -25,7 +25,7 @@ let () =
   Sexplib0.Sexp_conv.Exn_converter.add [%extension_constructor Unexpected_count] (function
     | Unexpected_count { expected; count } ->
       List
-        [ Atom "Z_shape.Unexpected_cound"
+        [ Atom "Z_shape.Unexpected_count"
         ; List [ Atom "expected"; Atom (Int.to_string expected) ]
         ; List [ Atom "count"; Atom (Int.to_string count) ]
         ]
