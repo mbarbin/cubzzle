@@ -1,0 +1,18 @@
+(version 0.2.2)
+
+(build
+ (all_platforms
+  ((action
+    (progn
+     (when %{pkg-self:dev} (run dune subst))
+     (run dune build -p %{pkg-self:name} -j %{jobs} @install))))))
+
+(depends
+ (all_platforms
+  (dune ocaml fpath sexplib0 stdune)))
+
+(source
+ (fetch
+  (url https://github.com/mbarbin/loc/releases/download/0.2.2/loc-0.2.2.tbz)
+  (checksum
+   sha256=3823c82f10c16278eb4b660a5621c59f4e920151c6d4c6a37976bbe9ba3a7934)))

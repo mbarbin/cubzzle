@@ -1,0 +1,31 @@
+(version 5.2.0)
+
+(build
+ (all_platforms
+  ((action
+    (progn
+     (when %{pkg-self:dev} (run dune subst))
+     (run dune build -p %{pkg-self:name} -j %{jobs} @install))))))
+
+(depends
+ (choice
+  ((((arch x86_64)
+     (os linux))
+    ((arch arm64)
+     (os linux))
+    ((arch x86_64)
+     (os macos))
+    ((arch arm64)
+     (os macos)))
+   (dune dune-configurator conf-libX11 conf-libXft conf-pkg-config ocaml))
+  ((((arch x86_64)
+     (os win32))
+    ((arch arm64)
+     (os win32)))
+   (dune dune-configurator ocaml))))
+
+(source
+ (fetch
+  (url https://github.com/ocaml/graphics/archive/refs/tags/5.2.0.tar.gz)
+  (checksum
+   sha256=baa99f5316c26df0844ee68921f531e554aab7ea2a1c881f30bd8365309077b0)))
