@@ -1,11 +1,18 @@
 {
     "cSpell.words": [
+        "cmdlang",
+        "cmdliner",
+        "conv",
         "cubzzle",
         "dimx",
         "dimy",
         "janestreet",
         "mbarbin",
         "odoc",
-        "opam"
+        "opam",
+        "pplumbing",
+        "ppxlib",
+        "ppxs",
+        "sherlodoc"
     ]
 }
