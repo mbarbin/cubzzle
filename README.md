@@ -53,7 +53,7 @@ The following command will open an OCaml Graphics window and run the solver:
 $ cubzzle run
 ```
 
-A few shapes are available (Cube, Dog, Tower, etc.). To solve a different shape, provide the option `-shape`. You can also draw the box during the brute force search, to see the solver run through all permutations interactively.
+A few shapes are available (Cube, Dog, Tower, etc.). To solve a different shape, provide the option `--shape`. You can also draw the box during the brute force search, to see the solver run through all permutations interactively.
 
 ```bash
 $ cubzzle run --shape=Tower --draw-box-during-search=true
