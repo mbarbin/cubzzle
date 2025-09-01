@@ -21,6 +21,6 @@ jobs:
 
       - name: Setup dune
         id: setup-dune
-        uses: mbarbin/setup-dune@8f296a5275662b3a65f6be22d8d42030f0a82441 # https://github.com/ocaml-dune/setup-dune/pull/9
+        uses: mbarbin/setup-dune@aca57022a621c5a0153a4181544827c03fd17578
         with:
           automagic: true
