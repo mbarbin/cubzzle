@@ -1,3 +1,9 @@
+(*********************************************************************************)
+(*  cubzzle - Solver for a wooden cube puzzle                                    *)
+(*  SPDX-FileCopyrightText: 2022-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
+(*  SPDX-License-Identifier: MIT                                                 *)
+(*********************************************************************************)
+
 let%expect_test "indices" =
   for index = 0 to Rotation.cardinality - 1 do
     let rotation = Rotation.of_index_exn index in

@@ -1,3 +1,9 @@
+(*********************************************************************************)
+(*  cubzzle - Solver for a wooden cube puzzle                                    *)
+(*  SPDX-FileCopyrightText: 2022-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
+(*  SPDX-License-Identifier: MIT                                                 *)
+(*********************************************************************************)
+
 let raw_components =
   [| [ 0, 0, 0; 1, 0, 0; 1, 0, 1; 2, 0, 0; 2, 1, 0 ]
    ; [ 0, 0, 0; 1, 0, 0; 1, 1, 0; 1, 0, 1; 2, 1, 0 ]

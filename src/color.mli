@@ -1,3 +1,9 @@
+(*_********************************************************************************)
+(*_  cubzzle - Solver for a wooden cube puzzle                                    *)
+(*_  SPDX-FileCopyrightText: 2022-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
+(*_  SPDX-License-Identifier: MIT                                                 *)
+(*_********************************************************************************)
+
 type t = Graphics.color [@@deriving compare, equal, hash, sexp_of]
 
 (** The color chosen when displaying the puzzle pieces. *)
