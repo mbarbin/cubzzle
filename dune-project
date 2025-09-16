@@ -28,7 +28,7 @@
   (cmdlang
    (>= 0.0.9))
   (graphics
-   (>= 5.1.2))
+   (>= 5.2.0))
   (pplumbing
    (>= 0.0.14))
   (ppx_compare
@@ -59,7 +59,7 @@
   (expect_test_helpers_core
    (>= v0.17))
   (graphics
-   (>= 5.1.2))
+   (>= 5.2.0))
   (pplumbing
    (>= 0.0.14))
   (ppx_compare
@@ -108,7 +108,7 @@
   (expect_test_helpers_core
    (>= v0.17))
   (graphics
-   (>= 5.1.2))
+   (>= 5.2.0))
   (pplumbing
    (>= 0.0.14))
   (ppx_compare
