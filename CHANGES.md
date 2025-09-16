@@ -1,7 +1,9 @@
-## 0.0.12 (unreleased)
+## 0.0.12 (2025-09-16)
 
 ### Changed
 
+- Upgrade and require more recent dependencies.
+- Internal upgrades related to CI.
 - Use internal exception instead of `raise_s`.
 
 ### Removed
