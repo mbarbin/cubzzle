@@ -27,10 +27,10 @@
    (>= v0.17))
   (cmdlang
    (>= 0.0.9))
+  (cmdlang-cmdliner-err-runner
+   (>= 0.0.16))
   (graphics
    (>= 5.2.0))
-  (pplumbing
-   (>= 0.0.14))
   (ppx_compare
    (>= v0.17))
   (ppx_enumerate
@@ -54,14 +54,14 @@
    (>= v0.17))
   (cmdlang
    (>= 0.0.9))
+  (cmdlang-cmdliner-err-runner
+   (>= 0.0.16))
   (cubzzle
    (= :version))
   (expect_test_helpers_core
    (>= v0.17))
   (graphics
    (>= 5.2.0))
-  (pplumbing
-   (>= 0.0.14))
   (ppx_compare
    (>= v0.17))
   (ppx_enumerate
@@ -103,14 +103,14 @@
    (>= 2.8.3))
   (cmdlang
    (>= 0.0.9))
+  (cmdlang-cmdliner-err-runner
+   (>= 0.0.16))
   (cubzzle
    (= :version))
   (expect_test_helpers_core
    (>= v0.17))
   (graphics
    (>= 5.2.0))
-  (pplumbing
-   (>= 0.0.14))
   (ppx_compare
    (>= v0.17))
   (ppx_enumerate
