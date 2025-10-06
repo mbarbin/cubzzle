@@ -4,5 +4,7 @@
  (package cubzzle)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
  (libraries cmdlang-cmdliner-err-runner cubzzle)
+ (instrumentation
+  (backend bisect_ppx))
  (lint
   (pps ppx_js_style -allow-let-operators -check-doc-comments)))

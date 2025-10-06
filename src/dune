@@ -13,11 +13,11 @@
   Stdio
   -open
   Cmdlang)
- (libraries cmdlang base graphics stdio)
+ (libraries base cmdlang graphics stdio)
  (instrumentation
   (backend bisect_ppx))
  (lint
-  (pps ppx_js_style -allow-let-operators))
+  (pps ppx_js_style -allow-let-operators -check-doc-comments))
  (preprocess
   (pps
    -unused-code-warnings=force
