@@ -17,6 +17,7 @@ depends: [
   "cmdlang" {>= "0.0.9"}
   "cmdlang-cmdliner-err-runner" {>= "0.0.16"}
   "cubzzle" {= version}
+  "cubzzle-tests" {= version}
   "expect_test_helpers_core" {>= "v0.17"}
   "graphics" {>= "5.2.0"}
   "ppx_compare" {>= "v0.17"}

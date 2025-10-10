@@ -107,6 +107,8 @@
    (>= 0.0.16))
   (cubzzle
    (= :version))
+  (cubzzle-tests
+   (= :version))
   (expect_test_helpers_core
    (>= v0.17))
   (graphics
