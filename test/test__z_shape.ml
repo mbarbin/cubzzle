@@ -6,15 +6,13 @@
 
 let%expect_test "create" =
   (match
-     Z_shape.create
-       ~size:{ x = 3; y = 3; z = 3 }
-       ~bottom:[| [| 0; 0; 0 |]; [| 0; 0; 0 |]; [| 0; 0; 0 |] |]
-       ~top:[| [| 3; 3; 3 |]; [| 3; 3; 3 |]; [| 3; 3; 2 |] |]
+     Z_shape.create ~size:{x = 3; y = 3; z = 3}
+       ~bottom:[|[|0; 0; 0|]; [|0; 0; 0|]; [|0; 0; 0|]|]
+       ~top:[|[|3; 3; 3|]; [|3; 3; 3|]; [|3; 3; 2|]|]
    with
-   | exception _ -> ()
-   | t -> print_s [%sexp "Unexpected t", (t : Z_shape.t)]);
+  | exception _ -> ()
+  | t -> print_s [%sexp "Unexpected t", (t : Z_shape.t)]);
   [%expect {||}]
-;;
 
 let%expect_test "samples" =
   List.iter Z_shape.Sample.all ~f:(fun sample ->
@@ -24,8 +22,7 @@ let%expect_test "samples" =
       [%sexp
         { sample : Z_shape.Sample.t
         ; z_shape : Z_shape.t
-        ; sections : Z_shape.Z_section.t array array
-        }]);
+        ; sections : Z_shape.Z_section.t array array }]);
   [%expect
     {|
     ((sample Cube)
@@ -178,4 +175,3 @@ let%expect_test "samples" =
         ((bottom 0) (top 2)))
        (((bottom 0) (top 2))
         ((bottom 0) (top 2)))))) |}]
-;;

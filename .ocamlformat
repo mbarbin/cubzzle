@@ -1,5 +1,6 @@
-version=0.27.0
-parse-docstrings = false
+version=0.28.1
+ocaml-version=5.2
+parse-docstrings = true
 break-cases = fit
 break-collection-expressions = fit-or-vertical
 break-fun-decl = wrap
