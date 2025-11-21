@@ -2,3 +2,4 @@ version=0.28.1
 ocaml-version=5.2
 profile=ocamlformat
 parse-docstrings=true
+wrap-comments=true

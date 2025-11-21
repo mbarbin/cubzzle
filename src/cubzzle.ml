@@ -16,7 +16,8 @@ let pi = Float.acos (-1.)
 
 let cube_width = 60
 
-(* The angle used in the perspective between horizontal and diagonal cube edges. *)
+(* The angle used in the perspective between horizontal and diagonal cube
+   edges. *)
 let theta_cube = pi /. 4.
 
 (* The length of the diagonal edge of the cubes seen in perspective. *)
@@ -60,7 +61,8 @@ let draw_cube (x, y) ~width ~delta_x ~delta_y ~color =
      ; (x + width, y) |]
 
 module Shown_pieces : sig
-  (* A mutable type to indicated which pieces are to be shown in the main drawing area. *)
+  (* A mutable type to indicated which pieces are to be shown in the main
+     drawing area. *)
   type t
 
   val all : unit -> t
@@ -121,7 +123,8 @@ let draw_pieces () =
       aux piece (a, b - (i * (cube_width * 13) / 8)) )
 
 (* Run a brute force search to try and insert all puzzle pieces into the box. If
-   a solution is found, it will be in the box by the time this function returns. *)
+   a solution is found, it will be in the box by the time this function
+   returns. *)
 let solve ~shape ~draw_box_during_search =
   let box = Box.create ~goal:(Z_shape.sample shape) in
   let size = Box.size box in
