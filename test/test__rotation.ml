@@ -12,7 +12,7 @@ let%expect_test "indices" =
   done;
   [%expect {||}];
   require_does_raise [%here] (fun () : Rotation.t ->
-    Rotation.of_index_exn Rotation.cardinality);
+      Rotation.of_index_exn Rotation.cardinality);
   [%expect
     {|
     (Rotation.Index_out_of_bounds
@@ -21,17 +21,14 @@ let%expect_test "indices" =
       (upper_bound 23))
     |}];
   ()
-;;
 
 let%expect_test "sexp_of_t" =
   let rotation = Rotation.of_index_exn 0 in
   print_s [%sexp (rotation : Rotation.t)];
-  [%expect
-    {|
+  [%expect {|
     ((rz 0)
      (ry 0)
      (rx 0)) |}]
-;;
 
 let%expect_test "zero invariant" =
   let zero = { Coordinate.x = 0; y = 0; z = 0 } in
@@ -41,4 +38,3 @@ let%expect_test "zero invariant" =
   done;
   [%expect {||}];
   ()
-;;

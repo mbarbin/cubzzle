@@ -6,13 +6,12 @@
 
 let%expect_test "solve" =
   List.iter Z_shape.Sample.all ~f:(fun shape ->
-    print_endline
-      (Printf.sprintf
-         "============== %s =============="
-         (Sexp.to_string [%sexp (shape : Z_shape.Sample.t)]));
-    match Cubzzle.solve ~shape ~draw_box_during_search:false with
-    | None -> print_endline "No solution"
-    | Some box -> Box.print_floors box);
+      print_endline
+        (Printf.sprintf "============== %s =============="
+           (Sexp.to_string [%sexp (shape : Z_shape.Sample.t)]));
+      match Cubzzle.solve ~shape ~draw_box_during_search:false with
+      | None -> print_endline "No solution"
+      | Some box -> Box.print_floors box);
   [%expect
     {|
     ============== Cube ==============
@@ -202,4 +201,3 @@ let%expect_test "solve" =
 
     12333
     66644 |}]
-;;
