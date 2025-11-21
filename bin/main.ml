@@ -5,5 +5,5 @@
 (*********************************************************************************)
 
 let () =
-  Cmdlang_cmdliner_err_runner.run Cubzzle.main ~name:"cubzzle" ~version:"%%VERSION%%"
-;;
+  Cmdlang_cmdliner_err_runner.run Cubzzle.main ~name:"cubzzle"
+    ~version:"%%VERSION%%"
