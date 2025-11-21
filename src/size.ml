@@ -4,9 +4,4 @@
 (*  SPDX-License-Identifier: MIT                                                 *)
 (*********************************************************************************)
 
-type t =
-  { x : int
-  ; y : int
-  ; z : int
-  }
-[@@deriving sexp_of]
+type t = {x: int; y: int; z: int} [@@deriving sexp_of]
