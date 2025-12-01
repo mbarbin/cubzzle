@@ -22,8 +22,8 @@ val contents : t -> Coordinate.t -> Piece.t option
 module Stack : sig
   (** The box acts as a stack of pieces. One can push and pop pieces from the box. *)
 
-  (** Remove the last piece pushed into the box. Does nothing if there is no
-      piece in the box. *)
+  (** Remove the last piece pushed into the box. Raises if there is no piece in
+      the box. *)
   val pop_piece : t -> unit
 
   module Push_piece_result : sig

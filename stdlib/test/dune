@@ -1,6 +1,6 @@
 (library
- (name cubzzle_test)
- (public_name cubzzle-tests.cubzzle_test)
+ (name cubzzle_stdlib_test)
+ (public_name cubzzle-tests.cubzzle_stdlib_test)
  (flags
   :standard
   -w
@@ -8,10 +8,8 @@
   -warn-error
   +a
   -open
-  Cubzzle_stdlib
-  -open
-  Cubzzle)
- (libraries cubzzle cubzzle_stdlib graphics)
+  Cubzzle_stdlib)
+ (libraries cubzzle_stdlib)
  (inline_tests)
  (instrumentation
   (backend bisect_ppx))

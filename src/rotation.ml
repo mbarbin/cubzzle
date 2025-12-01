@@ -17,29 +17,11 @@ module Description = struct
     ; ry : int
     ; rx : int
     }
-  [@@deriving sexp_of]
+
+  let to_dyn { rz; ry; rx } =
+    Dyn.record [ "rz", rz |> Dyn.int; "ry", ry |> Dyn.int; "rx", rx |> Dyn.int ]
+  ;;
 end
-
-exception
-  Index_out_of_bounds of
-    { index : int
-    ; lower_bound : int
-    ; upper_bound : int
-    }
-
-let () =
-  Sexplib0.Sexp_conv.Exn_converter.add
-    [%extension_constructor Index_out_of_bounds]
-    (function
-    | Index_out_of_bounds { index; lower_bound; upper_bound } ->
-      List
-        [ Atom "Rotation.Index_out_of_bounds"
-        ; List [ Atom "index"; Atom (Int.to_string index) ]
-        ; List [ Atom "lower_bound"; Atom (Int.to_string lower_bound) ]
-        ; List [ Atom "upper_bound"; Atom (Int.to_string upper_bound) ]
-        ]
-    | _ -> assert false)
-;;
 
 (* Given that each axes can take 4 values, and there are 3 axes, the total
    number of expanded combination is 4^3=64. In practice it is enough to
@@ -69,7 +51,13 @@ let rot_n = function
   | 22 -> 1, 1, 3
   | 23 -> 1, 2, 3
   | 24 -> 1, 3, 3
-  | index -> raise (Index_out_of_bounds { index; lower_bound = 1; upper_bound = 24 })
+  | index ->
+    Dyn.raise
+      "Rotation: Index out of bounds."
+      [ "index", index |> Dyn.int
+      ; "lower_bound", 1 |> Dyn.int
+      ; "upper_bound", 24 |> Dyn.int
+      ] [@coverage off]
 ;;
 
 let description t =
@@ -77,14 +65,19 @@ let description t =
   { Description.rz; ry; rx }
 ;;
 
-let sexp_of_t t = description t |> Description.sexp_of_t
+let to_dyn t = description t |> Description.to_dyn
 let cardinality = 24
 let to_index t = t
 
 let check_index_exn index =
   if not (0 <= index && index < cardinality)
   then
-    raise (Index_out_of_bounds { index; lower_bound = 0; upper_bound = cardinality - 1 })
+    Dyn.raise
+      "Rotation: Index out of bounds."
+      [ "index", index |> Dyn.int
+      ; "lower_bound", 0 |> Dyn.int
+      ; "upper_bound", cardinality - 1 |> Dyn.int
+      ]
 ;;
 
 let of_index_exn index =

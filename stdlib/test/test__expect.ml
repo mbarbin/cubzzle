@@ -4,12 +4,14 @@
 (*  SPDX-License-Identifier: MIT                                                 *)
 (*********************************************************************************)
 
-type t =
-  { x : int
-  ; y : int
-  ; z : int
-  }
-
-let to_dyn { x; y; z } =
-  Dyn.record [ "x", x |> Dyn.int; "y", y |> Dyn.int; "z", z |> Dyn.int ]
+let%expect_test "require_does_raise did not raise" =
+  (match require_does_raise ignore with
+   | () -> assert false
+   | exception exn -> print_string (Printexc.to_string exn));
+  [%expect
+    {|
+    Did not raise.
+    {}
+    |}];
+  ()
 ;;

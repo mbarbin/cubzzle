@@ -9,7 +9,14 @@ type t =
   ; bottom : int array array
   ; top : int array array
   }
-[@@deriving sexp_of]
+
+let to_dyn { size; bottom; top } =
+  Dyn.record
+    [ "size", size |> Size.to_dyn
+    ; "bottom", bottom |> Dyn.array (Dyn.array Dyn.int)
+    ; "top", top |> Dyn.array (Dyn.array Dyn.int)
+    ]
+;;
 
 let number_of_cubes t =
   let count = ref 0 in
@@ -19,23 +26,6 @@ let number_of_cubes t =
     done
   done;
   !count
-;;
-
-exception
-  Unexpected_count of
-    { expected : int
-    ; count : int
-    }
-
-let () =
-  Sexplib0.Sexp_conv.Exn_converter.add [%extension_constructor Unexpected_count] (function
-    | Unexpected_count { expected; count } ->
-      List
-        [ Atom "Z_shape.Unexpected_count"
-        ; List [ Atom "expected"; Atom (Int.to_string expected) ]
-        ; List [ Atom "count"; Atom (Int.to_string count) ]
-        ]
-    | _ -> assert false)
 ;;
 
 let invariant t =
@@ -55,7 +45,11 @@ let invariant t =
   done;
   let count = number_of_cubes t in
   let expected = 27 in
-  if count <> expected then raise (Unexpected_count { expected; count })
+  if count <> expected
+  then
+    Dyn.raise
+      "Z_shape: Unexpected count."
+      [ "expected", expected |> Dyn.int; "count", count |> Dyn.int ]
 ;;
 
 let create ~size ~bottom ~top =
@@ -71,7 +65,10 @@ module Z_section = struct
     { bottom : int
     ; top : int
     }
-  [@@deriving sexp_of]
+
+  let to_dyn { bottom; top } =
+    Dyn.record [ "bottom", bottom |> Dyn.int; "top", top |> Dyn.int ]
+  ;;
 
   let zero = { bottom = 0; top = 0 }
 end
@@ -94,13 +91,19 @@ module Sample = struct
     | Misc_01
     | Misc_02
     | Misc_03
-  [@@deriving enumerate, sexp_of]
 
-  let to_string t =
-    match sexp_of_t t with
-    | Atom atom -> atom
-    | List _ -> assert false
+  let all = [ Cube; Dog; Tower; Misc_01; Misc_02; Misc_03 ]
+
+  let to_string = function
+    | Cube -> "Cube"
+    | Dog -> "Dog"
+    | Tower -> "Tower"
+    | Misc_01 -> "Misc_01"
+    | Misc_02 -> "Misc_02"
+    | Misc_03 -> "Misc_03"
   ;;
+
+  let to_dyn t = Dyn.variant (to_string t) []
 
   let cube =
     create

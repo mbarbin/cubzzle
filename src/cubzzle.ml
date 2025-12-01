@@ -130,8 +130,9 @@ let solve ~shape ~draw_box_during_search =
   let box = Box.create ~goal:(Z_shape.sample shape) in
   let size = Box.size box in
   let shown_pieces = Shown_pieces.all () in
-  let rec aux (return : _ With_return.return) = function
-    | [] -> return.return box
+  let exception Return in
+  let rec aux = function
+    | [] -> raise_notrace Return
     | piece :: q ->
       for x0 = 0 to size.x - 1 do
         for y0 = 0 to size.y - 1 do
@@ -146,14 +147,16 @@ let solve ~shape ~draw_box_during_search =
                 then (
                   Graphics.clear_graph ();
                   draw_box box ~shown_pieces);
-                aux return q;
+                aux q;
                 Box.Stack.pop_piece box
             done
           done
         done
       done
   in
-  With_return.with_return_option (fun return -> aux return Piece.all)
+  match aux Piece.all with
+  | () -> None
+  | exception Return -> Some box
 ;;
 
 (* User UI which allows pieces to be taken out and put back to view how they
@@ -165,7 +168,8 @@ let interactive_view box =
       Color.is_rough_match (Piece.color piece) ~possibly_darkened:color)
   in
   let shown_pieces = Shown_pieces.all () in
-  With_return.with_return (fun return ->
+  let exception Return in
+  match
     while true do
       Graphics.clear_graph ();
       draw_box box ~shown_pieces;
@@ -175,12 +179,15 @@ let interactive_view box =
         "Click on a piece to take it out or put it back. Press any key to quit.";
       let stat = Graphics.wait_next_event [ Button_down; Key_pressed ] in
       if not (Graphics.button_down ())
-      then return.return ()
+      then raise_notrace Return
       else (
         match Graphics.point_color stat.mouse_x stat.mouse_y |> find_piece_by_color with
         | None -> ()
         | Some piece -> Shown_pieces.toggle shown_pieces piece)
-    done)
+    done
+  with
+  | () -> ()
+  | exception Return -> ()
 ;;
 
 let run_cmd =
@@ -194,6 +201,10 @@ let run_cmd =
          ~default:Z_shape.Sample.Cube
          ~docv:"SHAPE"
          ~doc:"Specify which shape to solve."
+     and+ no_graph =
+       Arg.flag
+         [ "no-graph" ]
+         ~doc:"Do not open a graphics window, only print the result on stdout."
      and+ draw_box_during_search =
        Arg.named_with_default
          [ "draw-box-during-search" ]
@@ -202,14 +213,21 @@ let run_cmd =
          ~doc:"Specify whether to draw incrementally during search."
      in
      try
-       Graphics.open_graph " 1000x620";
-       Graphics.set_window_title "cubzzle";
+       (match no_graph with
+        | true -> ()
+        | false ->
+          (Graphics.open_graph " 1000x620";
+           Graphics.set_window_title "cubzzle";
+           ())
+          [@coverage off]);
        match solve ~shape ~draw_box_during_search with
        | None -> print_string "No solution found.\n"
        | Some box ->
          Box.print_floors box;
          Out_channel.flush stdout;
-         interactive_view box
+         (match no_graph with
+          | true -> ()
+          | false -> interactive_view box [@coverage off])
      with
      | Graphics.Graphic_failure _ -> ())
 ;;

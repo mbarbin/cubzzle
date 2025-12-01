@@ -8,20 +8,12 @@
   -warn-error
   +a
   -open
-  Base
+  Cmdlang
   -open
-  Stdio
-  -open
-  Cmdlang)
- (libraries base cmdlang graphics stdio)
+  Cubzzle_stdlib)
+ (libraries cmdlang cubzzle_stdlib graphics)
  (instrumentation
   (backend bisect_ppx))
  (lint
   (pps ppx_js_style -allow-let-operators -check-doc-comments))
- (preprocess
-  (pps
-   -unused-code-warnings=force
-   ppx_compare
-   ppx_enumerate
-   ppx_hash
-   ppx_sexp_conv)))
+ (preprocess no_preprocessing))

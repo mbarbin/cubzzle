@@ -18,41 +18,27 @@ let raw_components =
 let cardinality = Array.length raw_components
 
 module Index = struct
-  type t = int [@@deriving equal]
+  type t = int
 
-  let all = List.init cardinality ~f:Fn.id
+  let equal = Int.equal
+  let all = List.init cardinality ~f:Fun.id
 end
 
-type t = Index of Index.t [@@deriving equal, enumerate]
+type t = Index of Index.t
 
+let equal (Index i1) (Index i2) = Index.equal i1 i2
+let all = List.map Index.all ~f:(fun i -> Index i)
 let to_index (Index index) = index
-
-exception
-  Index_out_of_bounds of
-    { index : int
-    ; lower_bound : int
-    ; upper_bound : int
-    }
-
-let () =
-  Sexplib0.Sexp_conv.Exn_converter.add
-    [%extension_constructor Index_out_of_bounds]
-    (function
-    | Index_out_of_bounds { index; lower_bound; upper_bound } ->
-      List
-        [ Atom "Piece.Index_out_of_bounds"
-        ; List [ Atom "index"; Atom (Int.to_string index) ]
-        ; List [ Atom "lower_bound"; Atom (Int.to_string lower_bound) ]
-        ; List [ Atom "upper_bound"; Atom (Int.to_string upper_bound) ]
-        ]
-    | _ -> assert false)
-;;
 
 let check_index_exn index =
   if not (0 <= index && index < cardinality)
   then
-    raise
-      (Index_out_of_bounds { index : int; lower_bound = 0; upper_bound = cardinality - 1 })
+    Dyn.raise
+      "Piece: Index out of bounds."
+      [ "index", index |> Dyn.int
+      ; "lower_bound", 0 |> Dyn.int
+      ; "upper_bound", cardinality - 1 |> Dyn.int
+      ]
 ;;
 
 let of_index_exn index =

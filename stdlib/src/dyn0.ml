@@ -4,12 +4,16 @@
 (*  SPDX-License-Identifier: MIT                                                 *)
 (*********************************************************************************)
 
-type t =
-  { x : int
-  ; y : int
-  ; z : int
-  }
+include Dyn
 
-let to_dyn { x; y; z } =
-  Dyn.record [ "x", x |> Dyn.int; "y", y |> Dyn.int; "z", z |> Dyn.int ]
+let print t = print_string (Dyn.to_string t)
+
+exception E of string * Dyn.t
+
+let () =
+  Printexc.register_printer (function
+    | E (msg, dyn) -> Some (msg ^ "\n" ^ Dyn.to_string dyn)
+    | _ -> None [@coverage off])
 ;;
+
+let raise msg fields = raise (E (msg, Dyn.record fields))

@@ -4,12 +4,9 @@
 (*  SPDX-License-Identifier: MIT                                                 *)
 (*********************************************************************************)
 
-type t =
-  { x : int
-  ; y : int
-  ; z : int
-  }
-
-let to_dyn { x; y; z } =
-  Dyn.record [ "x", x |> Dyn.int; "y", y |> Dyn.int; "z", z |> Dyn.int ]
+let%expect_test "find" =
+  let r = List.find [ 0; 1; 2; 3 ] ~f:(fun i -> Ordering.is_eq (Int.compare i 2)) in
+  Dyn.print (Dyn.option Dyn.int r);
+  [%expect {| Some 2 |}];
+  ()
 ;;

@@ -4,7 +4,12 @@
 (*_  SPDX-License-Identifier: MIT                                                 *)
 (*_********************************************************************************)
 
-type t = Graphics.color [@@deriving compare, equal, hash, sexp_of]
+type t = Graphics.color
+
+val to_dyn : t -> Dyn.t
+val equal : t -> t -> bool
+val compare : t -> t -> Ordering.t
+val hash : t -> int
 
 (** The color chosen when displaying the puzzle pieces. *)
 val pieces : t list
@@ -20,7 +25,8 @@ module Darken_factor : sig
     | Light
     | Medium
     | Strong
-  [@@deriving enumerate]
+
+  val all : t list
 end
 
 val darken : t -> darken_factor:Darken_factor.t -> t

@@ -8,7 +8,9 @@
     the pieces start (bottom) and where they end (top). All proposed shapes are
     such that there is no hole in the middle of a z section, so this
     representation is suitable. *)
-type t [@@deriving sexp_of]
+type t
+
+val to_dyn : t -> Dyn.t
 
 (** [bottom] and [top] are expected to index by y first -- such as in [arr.(y).(x)]. *)
 val create : size:Size.t -> bottom:int array array -> top:int array array -> t
@@ -23,8 +25,9 @@ module Sample : sig
     | Misc_01
     | Misc_02
     | Misc_03
-  [@@deriving enumerate, sexp_of]
 
+  val to_dyn : t -> Dyn.t
+  val all : t list
   val to_string : t -> string
 end
 
@@ -35,7 +38,8 @@ module Z_section : sig
     { bottom : int
     ; top : int
     }
-  [@@deriving sexp_of]
+
+  val to_dyn : t -> Dyn.t
 end
 
 (** Return an array of sections, indexed by x first then y. *)

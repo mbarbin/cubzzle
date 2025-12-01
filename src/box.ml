@@ -44,7 +44,8 @@ let contents t ({ Coordinate.x; y; z } as c) =
 module Stack = struct
   let pop_piece t =
     match Stack.pop t.piece_stack with
-    | None -> ()
+    | None ->
+      Dyn.raise "Box.Stack.pop_piece: no piece currently in the box" [] [@coverage off]
     | Some piece ->
       for i = 0 to t.size.x - 1 do
         for j = 0 to t.size.y - 1 do
@@ -82,7 +83,6 @@ module Stack = struct
 end
 
 let print_floors t =
-  let open Stdio in
   for k = t.size.z - 1 downto 0 do
     print_string "\n";
     print_string ("Floor " ^ Int.to_string (k + 1) ^ "\n");
