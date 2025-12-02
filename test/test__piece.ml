@@ -14,8 +14,8 @@ let%expect_test "indices" =
   require_does_raise (fun () : Piece.t -> Piece.of_index_exn Piece.cardinality);
   [%expect
     {|
-    Piece: Index out of bounds.
-    { index = 6; lower_bound = 0; upper_bound = 5 }
+    ("Piece: Index out of bounds.",
+     { index = 6; lower_bound = 0; upper_bound = 5 })
     |}];
   ()
 ;;
@@ -28,7 +28,10 @@ let%expect_test "components" =
   List.iter Piece.all ~f:(fun piece ->
     let color = Piece.color piece in
     if Color_table.mem visited_colors color
-    then Dyn.raise "Duplicated color." [ "color", color |> Color.to_dyn ] [@coverage off]
+    then
+      Code_error.raise
+        "Duplicated color."
+        [ "color", color |> Color.to_dyn ] [@coverage off]
     else Color_table.add visited_colors color ();
     let components = Piece.components piece in
     let length = List.length components in
@@ -37,7 +40,7 @@ let%expect_test "components" =
     List.iter components ~f:(fun component ->
       if Coordinate_table.mem visited_components component
       then
-        Dyn.raise
+        Code_error.raise
           "Duplicated component."
           [ "component", component |> Coordinate.to_dyn ] [@coverage off]
       else Coordinate_table.add visited_components component ()));

@@ -13,15 +13,11 @@ let%expect_test "create" =
    with
    | (_ : Z_shape.t) -> assert false
    | exception e -> print_endline (Printexc.to_string e));
-  [%expect
-    {|
-    Z_shape: Unexpected count.
-    { expected = 27; count = 26 }
-    |}]
+  [%expect {| ("Z_shape: Unexpected count.", { expected = 27; count = 26 }) |}]
 ;;
 
 let%expect_test "samples" =
-  Dyn.print
+  print_dyn
     (Dyn.list
        (fun sample ->
           let z_shape = Z_shape.sample sample in

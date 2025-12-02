@@ -4,16 +4,18 @@
 (*  SPDX-License-Identifier: MIT                                                 *)
 (*********************************************************************************)
 
-include Dyn
+type t =
+  { message : string
+  ; data : (string * Dyn.t) list
+  }
 
-let print t = print_string (Dyn.to_string t)
+exception E of t
 
-exception E of string * Dyn.t
+let raise message data = raise (E { message; data })
+let to_dyn { message; data } = Dyn.Tuple [ Dyn.String message; Record data ]
 
 let () =
   Printexc.register_printer (function
-    | E (msg, dyn) -> Some (msg ^ "\n" ^ Dyn.to_string dyn)
-    | _ -> None [@coverage off])
+    | E t -> Some (Dyn.to_string (to_dyn t))
+    | _ -> None)
 ;;
-
-let raise msg fields = raise (E (msg, Dyn.record fields))

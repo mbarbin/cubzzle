@@ -9,7 +9,7 @@ let rgb_to_dyn (r, g, b) = Dyn.Tuple [ Dyn.int r; Dyn.int g; Dyn.int b ]
 let%expect_test "darken" =
   let color = Graphics.rgb 25 50 100 in
   let darken ~darken_factor =
-    Dyn.print (Color.to_rgb (Color.darken color ~darken_factor) |> rgb_to_dyn)
+    print_dyn (Color.to_rgb (Color.darken color ~darken_factor) |> rgb_to_dyn)
   in
   darken ~darken_factor:None;
   [%expect {| (25, 50, 100) |}];

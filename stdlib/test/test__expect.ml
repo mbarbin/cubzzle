@@ -8,10 +8,6 @@ let%expect_test "require_does_raise did not raise" =
   (match require_does_raise ignore with
    | () -> assert false
    | exception exn -> print_string (Printexc.to_string exn));
-  [%expect
-    {|
-    Did not raise.
-    {}
-    |}];
+  [%expect {| ("Did not raise.", {}) |}];
   ()
 ;;

@@ -47,7 +47,7 @@ let invariant t =
   let expected = 27 in
   if count <> expected
   then
-    Dyn.raise
+    Code_error.raise
       "Z_shape: Unexpected count."
       [ "expected", expected |> Dyn.int; "count", count |> Dyn.int ]
 ;;

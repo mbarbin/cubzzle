@@ -52,7 +52,7 @@ let rot_n = function
   | 23 -> 1, 2, 3
   | 24 -> 1, 3, 3
   | index ->
-    Dyn.raise
+    Code_error.raise
       "Rotation: Index out of bounds."
       [ "index", index |> Dyn.int
       ; "lower_bound", 1 |> Dyn.int
@@ -72,7 +72,7 @@ let to_index t = t
 let check_index_exn index =
   if not (0 <= index && index < cardinality)
   then
-    Dyn.raise
+    Code_error.raise
       "Rotation: Index out of bounds."
       [ "index", index |> Dyn.int
       ; "lower_bound", 0 |> Dyn.int

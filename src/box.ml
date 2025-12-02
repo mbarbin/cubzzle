@@ -45,7 +45,9 @@ module Stack = struct
   let pop_piece t =
     match Stack.pop t.piece_stack with
     | None ->
-      Dyn.raise "Box.Stack.pop_piece: no piece currently in the box" [] [@coverage off]
+      Code_error.raise
+        "Box.Stack.pop_piece: no piece currently in the box"
+        [] [@coverage off]
     | Some piece ->
       for i = 0 to t.size.x - 1 do
         for j = 0 to t.size.y - 1 do

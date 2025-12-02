@@ -6,9 +6,11 @@
 
 (** Extending [Stdlib] for use in the project. *)
 
-module Dyn = Dyn0
+module Code_error = Code_error
+module Dyn = Dyn
 module Ordering = Ordering
 
+val print_dyn : Dyn.t -> unit
 val phys_equal : 'a -> 'a -> bool
 val require_does_raise : (unit -> 'a) -> unit
 

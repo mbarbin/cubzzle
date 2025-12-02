@@ -14,15 +14,15 @@ let%expect_test "indices" =
   require_does_raise (fun () : Rotation.t -> Rotation.of_index_exn Rotation.cardinality);
   [%expect
     {|
-    Rotation: Index out of bounds.
-    { index = 24; lower_bound = 0; upper_bound = 23 }
+    ("Rotation: Index out of bounds.",
+     { index = 24; lower_bound = 0; upper_bound = 23 })
     |}];
   ()
 ;;
 
 let%expect_test "to_dyn" =
   let rotation = Rotation.of_index_exn 0 in
-  Dyn.print (rotation |> Rotation.to_dyn);
+  print_dyn (rotation |> Rotation.to_dyn);
   [%expect {| { rz = 0; ry = 0; rx = 0 } |}]
 ;;
 

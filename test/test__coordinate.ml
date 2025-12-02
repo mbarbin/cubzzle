@@ -21,7 +21,7 @@ let%expect_test "compare" =
       ; { x = 1; y = 2; z = 3 }
       ]
   in
-  Dyn.print (Dyn.list Coordinate.to_dyn ts);
+  print_dyn (Dyn.list Coordinate.to_dyn ts);
   [%expect
     {|
     [ { x = 0; y = 2; z = 3 }

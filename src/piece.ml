@@ -33,7 +33,7 @@ let to_index (Index index) = index
 let check_index_exn index =
   if not (0 <= index && index < cardinality)
   then
-    Dyn.raise
+    Code_error.raise
       "Piece: Index out of bounds."
       [ "index", index |> Dyn.int
       ; "lower_bound", 0 |> Dyn.int

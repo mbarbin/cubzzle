@@ -6,7 +6,7 @@
 
 let%expect_test "find" =
   let r = List.find [ 0; 1; 2; 3 ] ~f:(fun i -> Ordering.is_eq (Int.compare i 2)) in
-  Dyn.print (Dyn.option Dyn.int r);
+  print_dyn (Dyn.option Dyn.int r);
   [%expect {| Some 2 |}];
   ()
 ;;
