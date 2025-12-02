@@ -9,9 +9,9 @@ let%expect_test "solve" =
     print_endline
       (Printf.sprintf
          "============== %s =============="
-         (Sexp.to_string [%sexp (shape : Z_shape.Sample.t)]));
+         (shape |> Z_shape.Sample.to_string));
     match Cubzzle.solve ~shape ~draw_box_during_search:false with
-    | None -> print_endline "No solution"
+    | None -> print_endline "No solution" [@coverage off]
     | Some box -> Box.print_floors box);
   [%expect
     {|

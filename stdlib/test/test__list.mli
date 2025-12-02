@@ -3,11 +3,3 @@
 (*_  SPDX-FileCopyrightText: 2022-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
 (*_  SPDX-License-Identifier: MIT                                                 *)
 (*_********************************************************************************)
-
-type t =
-  { x : int
-  ; y : int
-  ; z : int
-  }
-
-val to_dyn : t -> Dyn.t

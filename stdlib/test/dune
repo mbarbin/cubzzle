@@ -1,6 +1,6 @@
 (library
- (name cubzzle)
- (public_name cubzzle)
+ (name cubzzle_stdlib_test)
+ (public_name cubzzle-tests.cubzzle_stdlib_test)
  (flags
   :standard
   -w
@@ -8,12 +8,12 @@
   -warn-error
   +a
   -open
-  Cmdlang
-  -open
   Cubzzle_stdlib)
- (libraries cmdlang cubzzle_stdlib graphics)
+ (libraries cubzzle_stdlib)
+ (inline_tests)
  (instrumentation
   (backend bisect_ppx))
  (lint
   (pps ppx_js_style -allow-let-operators -check-doc-comments))
- (preprocess no_preprocessing))
+ (preprocess
+  (pps ppx_expect)))

@@ -4,10 +4,4 @@
 (*_  SPDX-License-Identifier: MIT                                                 *)
 (*_********************************************************************************)
 
-type t =
-  { x : int
-  ; y : int
-  ; z : int
-  }
-
-val to_dyn : t -> Dyn.t
+(*_ This signature is deliberately empty. *)

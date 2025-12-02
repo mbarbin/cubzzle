@@ -1,0 +1,4 @@
+(cram
+ (package cubzzle-tests)
+ (deps
+  (package cubzzle)))

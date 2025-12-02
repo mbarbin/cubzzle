@@ -4,10 +4,15 @@
 (*_  SPDX-License-Identifier: MIT                                                 *)
 (*_********************************************************************************)
 
+(*_ Inspired by a similar module in stdune. *)
+
+(** A programming error that should be reported upstream *)
+
 type t =
-  { x : int
-  ; y : int
-  ; z : int
+  { message : string
+  ; data : (string * Dyn.t) list
   }
 
-val to_dyn : t -> Dyn.t
+exception E of t
+
+val raise : string -> (string * Dyn.t) list -> _

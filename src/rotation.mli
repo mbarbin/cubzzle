@@ -6,7 +6,9 @@
 
 (** Encoding ways of rotating a piece in space. *)
 
-type t [@@deriving sexp_of]
+type t
+
+val to_dyn : t -> Dyn.t
 
 (** The number of different rotations. *)
 val cardinality : int

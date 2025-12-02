@@ -11,26 +11,19 @@ let%expect_test "indices" =
     assert (Int.equal index index')
   done;
   [%expect {||}];
-  require_does_raise [%here] (fun () : Rotation.t ->
-    Rotation.of_index_exn Rotation.cardinality);
+  require_does_raise (fun () : Rotation.t -> Rotation.of_index_exn Rotation.cardinality);
   [%expect
     {|
-    (Rotation.Index_out_of_bounds
-      (index       24)
-      (lower_bound 0)
-      (upper_bound 23))
+    ("Rotation: Index out of bounds.",
+     { index = 24; lower_bound = 0; upper_bound = 23 })
     |}];
   ()
 ;;
 
-let%expect_test "sexp_of_t" =
+let%expect_test "to_dyn" =
   let rotation = Rotation.of_index_exn 0 in
-  print_s [%sexp (rotation : Rotation.t)];
-  [%expect
-    {|
-    ((rz 0)
-     (ry 0)
-     (rx 0)) |}]
+  print_dyn (rotation |> Rotation.to_dyn);
+  [%expect {| { rz = 0; ry = 0; rx = 0 } |}]
 ;;
 
 let%expect_test "zero invariant" =

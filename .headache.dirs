@@ -2,4 +2,6 @@
 # Add new directories below. Lines starting with '#' are ignored.
 bin
 src
+stdlib/src
+stdlib/test
 test

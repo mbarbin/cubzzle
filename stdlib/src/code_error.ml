@@ -5,11 +5,17 @@
 (*********************************************************************************)
 
 type t =
-  { x : int
-  ; y : int
-  ; z : int
+  { message : string
+  ; data : (string * Dyn.t) list
   }
 
-let to_dyn { x; y; z } =
-  Dyn.record [ "x", x |> Dyn.int; "y", y |> Dyn.int; "z", z |> Dyn.int ]
+exception E of t
+
+let raise message data = raise (E { message; data })
+let to_dyn { message; data } = Dyn.Tuple [ Dyn.String message; Record data ]
+
+let () =
+  Printexc.register_printer (function
+    | E t -> Some (Dyn.to_string (to_dyn t))
+    | _ -> None)
 ;;

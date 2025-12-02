@@ -4,8 +4,12 @@
 (*  SPDX-License-Identifier: MIT                                                 *)
 (*********************************************************************************)
 
-type t = int [@@deriving compare, equal, hash, sexp_of]
+type t = int
 
+let to_dyn = Dyn.int
+let equal = Int.equal
+let compare = Int.compare
+let hash = Int.hash
 let pieces = Graphics.[ blue; yellow; red; cyan; green; magenta ]
 
 module Darken_factor = struct
@@ -14,10 +18,11 @@ module Darken_factor = struct
     | Light
     | Medium
     | Strong
-  [@@deriving enumerate]
+
+  let all = [ None; Light; Medium; Strong ]
 end
 
-let to_rgb t = t / (256 * 256), t / 256 % 256, t % 256
+let to_rgb t = t / (256 * 256), t / 256 mod 256, t mod 256
 
 let darken t ~darken_factor =
   let scale i =

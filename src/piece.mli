@@ -5,7 +5,10 @@
 (*_********************************************************************************)
 
 (** The pieces that constitutes the puzzle. *)
-type t [@@deriving equal, enumerate]
+type t
+
+val equal : t -> t -> bool
+val all : t list
 
 (** The number of pieces. In this version of the puzzle, that's 6. *)
 val cardinality : int

@@ -11,33 +11,39 @@ let%expect_test "indices" =
     assert (Int.equal index index')
   done;
   [%expect {||}];
-  require_does_raise [%here] (fun () : Piece.t -> Piece.of_index_exn Piece.cardinality);
+  require_does_raise (fun () : Piece.t -> Piece.of_index_exn Piece.cardinality);
   [%expect
     {|
-    (Piece.Index_out_of_bounds
-      (index       6)
-      (lower_bound 0)
-      (upper_bound 5))
+    ("Piece: Index out of bounds.",
+     { index = 6; lower_bound = 0; upper_bound = 5 })
     |}];
   ()
 ;;
 
+module Color_table = Hashtbl.Make (Color)
+module Coordinate_table = Hashtbl.Make (Coordinate)
+
 let%expect_test "components" =
-  let visited_colors = Hash_set.create (module Color) in
+  let visited_colors = Color_table.create (List.length Piece.all) in
   List.iter Piece.all ~f:(fun piece ->
     let color = Piece.color piece in
-    (match Hash_set.strict_add visited_colors color with
-     | Ok () -> ()
-     | Error e -> raise_s [%sexp "Duplicated color", (color : Color.t), (e : Error.t)]);
+    if Color_table.mem visited_colors color
+    then
+      Code_error.raise
+        "Duplicated color."
+        [ "color", color |> Color.to_dyn ] [@coverage off]
+    else Color_table.add visited_colors color ();
     let components = Piece.components piece in
-    let visited_components = Hash_set.create (module Coordinate) in
-    List.iter components ~f:(fun component ->
-      match Hash_set.strict_add visited_components component with
-      | Ok () -> ()
-      | Error e ->
-        raise_s [%sexp "Duplicated component", (component : Coordinate.t), (e : Error.t)]);
     let length = List.length components in
-    assert (4 <= length && length <= 5));
+    assert (4 <= length && length <= 5);
+    let visited_components = Coordinate_table.create length in
+    List.iter components ~f:(fun component ->
+      if Coordinate_table.mem visited_components component
+      then
+        Code_error.raise
+          "Duplicated component."
+          [ "component", component |> Coordinate.to_dyn ] [@coverage off]
+      else Coordinate_table.add visited_components component ()));
   [%expect {||}];
   ()
 ;;
