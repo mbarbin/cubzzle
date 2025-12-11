@@ -10,8 +10,7 @@
 ;; Test lib naming
 (rule
  (cond
-  ((path
-    (or (glob test/**) (glob stdlib/test/**)))
+  ((path (glob test/**))
    (enforce
     (dune
      (library
