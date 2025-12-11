@@ -1,7 +1,7 @@
 # List of directories for headache.sh
 # Add new directories below. Lines starting with '#' are ignored.
-bin
-src
-stdlib/src
-stdlib/test
-test
+pkg/cubzzle
+pkg/cubzzle/bin
+pkg/cubzzle/stdlib
+test/cubzzle
+test/cubzzle/stdlib
