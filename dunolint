@@ -15,10 +15,8 @@
     (dune
      (library
       (and
-       (public_name
-        (is_prefix cubzzle-tests.))
-       (name
-        (is_suffix _test)))))))))
+       (not (has_field public_name))
+       (name (is_suffix _test)))))))))
 
 ;; Configure the ppx_js_style linter
 (rule
@@ -38,3 +36,11 @@
        (param none)
        (applies_to
         (pp ppx_js_style)))))))))
+
+;; No preprocessing
+(rule
+ (cond
+  ((path (glob src/**))
+   (enforce
+    (dune
+     (preprocess no_preprocessing))))))
