@@ -1,6 +1,6 @@
 (library
- (name cubzzle_test)
- (public_name cubzzle-tests.cubzzle_test)
+ (name cubzzle_expect_test)
+ (package cubzzle-tests)
  (flags
   :standard
   -w
