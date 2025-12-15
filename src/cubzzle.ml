@@ -169,7 +169,7 @@ let interactive_view box =
   in
   let shown_pieces = Shown_pieces.all () in
   let exception Quit in
-  match
+  try
     while true do
       Graphics.clear_graph ();
       draw_box box ~shown_pieces;
@@ -186,8 +186,7 @@ let interactive_view box =
         | Some piece -> Shown_pieces.toggle shown_pieces piece)
     done
   with
-  | () -> ()
-  | exception Quit -> ()
+  | Quit -> ()
 ;;
 
 let run_cmd =
