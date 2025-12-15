@@ -130,9 +130,9 @@ let solve ~shape ~draw_box_during_search =
   let box = Box.create ~goal:(Z_shape.sample shape) in
   let size = Box.size box in
   let shown_pieces = Shown_pieces.all () in
-  let exception Return in
+  let exception Inserted_all_pieces in
   let rec aux = function
-    | [] -> raise_notrace Return
+    | [] -> raise_notrace Inserted_all_pieces
     | piece :: q ->
       for x0 = 0 to size.x - 1 do
         for y0 = 0 to size.y - 1 do
@@ -156,7 +156,7 @@ let solve ~shape ~draw_box_during_search =
   in
   match aux Piece.all with
   | () -> None
-  | exception Return -> Some box
+  | exception Inserted_all_pieces -> Some box
 ;;
 
 (* User UI which allows pieces to be taken out and put back to view how they
@@ -168,7 +168,7 @@ let interactive_view box =
       Color.is_rough_match (Piece.color piece) ~possibly_darkened:color)
   in
   let shown_pieces = Shown_pieces.all () in
-  let exception Return in
+  let exception Quit in
   match
     while true do
       Graphics.clear_graph ();
@@ -179,7 +179,7 @@ let interactive_view box =
         "Click on a piece to take it out or put it back. Press any key to quit.";
       let stat = Graphics.wait_next_event [ Button_down; Key_pressed ] in
       if not (Graphics.button_down ())
-      then raise_notrace Return
+      then raise_notrace Quit
       else (
         match Graphics.point_color stat.mouse_x stat.mouse_y |> find_piece_by_color with
         | None -> ()
@@ -187,7 +187,7 @@ let interactive_view box =
     done
   with
   | () -> ()
-  | exception Return -> ()
+  | exception Quit -> ()
 ;;
 
 let run_cmd =
