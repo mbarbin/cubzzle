@@ -23,6 +23,6 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Setup dune
-        uses: mbarbin/setup-dune@b5f5154dbe381e40c33d8d22fbc92d6fe3c52c87 # v1.0.0
+        uses: mbarbin/setup-dune@17be69a504ccb0bb337be7948ebe4761a9d02c45 # repkg
         with:
-          automagic: true
+          steps: all
