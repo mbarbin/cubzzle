@@ -22,7 +22,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Setup dune
-        uses: mbarbin/setup-dune@17be69a504ccb0bb337be7948ebe4761a9d02c45 # repkg
+      - name: Dune Pkg CI
+        uses: mbarbin/setup-dune@b82674889b0fec50f3569ce2bfa9b39aef1d6abf # repkg
         with:
           steps: all
