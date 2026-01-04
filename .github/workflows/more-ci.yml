@@ -42,6 +42,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      # Refresh the apt package index. GitHub Actions runner images may have
+      # a stale cache, which can cause opam-depext to fail when installing
+      # system dependencies. This may help prevent such issues.
+      - name: Update apt package index
+        if: runner.os == 'Linux'
+        run: sudo apt-get update
+
       - name: Setup OCaml
         uses: ocaml/setup-ocaml@v3
         with:
