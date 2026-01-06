@@ -38,7 +38,7 @@ jobs:
       # opam-depext to fail when installing system dependencies. This may help
       # prevent such issues.
       - name: Update apt package index
-        run: sudo opam update --depexts
+        run: opam update --depexts
 
       - name: Install OCaml Dependencies
         run: opam install . --deps-only --with-doc

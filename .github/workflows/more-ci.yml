@@ -66,7 +66,7 @@ jobs:
       # since we don't seem to have that issue with `macos-latest` atm.
       - name: Update apt package index
         if: runner.os == 'Linux'
-        run: sudo opam update --depexts
+        run: opam update --depexts
 
       # We build and run tests for a subset of packages. More tests are run in
       # the development workflow and as part of the main CI job. These are the
