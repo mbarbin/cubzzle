@@ -75,4 +75,4 @@ jobs:
         run: opam install ./cubzzle.opam ./cubzzle-tests.opam --deps-only --with-test
 
       - name: Build & Run tests
-        run: opam exec -- dune build @all @runtest -p cubzzle,cubzzle-tests
+        run: opam exec -- dune build @all @runtest --only-packages=cubzzle,cubzzle-tests
