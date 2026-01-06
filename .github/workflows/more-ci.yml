@@ -42,13 +42,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      # Refresh the apt package index. GitHub Actions runner images may have
-      # a stale cache, which can cause opam-depext to fail when installing
-      # system dependencies. This may help prevent such issues.
-      - name: Update apt package index
-        if: runner.os == 'Linux'
-        run: sudo apt-get update
-
       - name: Setup OCaml
         uses: ocaml/setup-ocaml@v3
         with:
@@ -60,6 +53,20 @@ jobs:
             alpha:   https://github.com/kit-ty-kate/opam-alpha-repository.git
       #     janestreet-bleeding: https://github.com/janestreet/opam-repository.git
       #     janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
+
+      # Request the system package manager to update its database.
+      #
+      # GitHub Actions runner images may have a stale cache, which can cause
+      # opam-depext to fail when installing system dependencies. This may help
+      # prevent such issues.
+      #
+      # This steps takes about ~10s to complete.
+      #
+      # Note: We've restricted this step to happen only with `ubuntu-latest`
+      # since we don't seem to have that issue with `macos-latest` atm.
+      - name: Update apt package index
+        if: runner.os == 'Linux'
+        run: opam update --depexts
 
       # We build and run tests for a subset of packages. More tests are run in
       # the development workflow and as part of the main CI job. These are the

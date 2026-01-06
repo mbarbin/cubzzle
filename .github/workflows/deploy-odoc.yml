@@ -20,12 +20,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Refresh the apt package index. GitHub Actions runner images may have
-      # a stale cache, which can cause opam-depext to fail when installing
-      # system dependencies. This may help prevent such issues.
-      - name: Update apt package index
-        run: sudo apt-get update
-
       - name: Setup OCaml
         uses: ocaml/setup-ocaml@v3
         with:
@@ -37,6 +31,14 @@ jobs:
             alpha:   https://github.com/kit-ty-kate/opam-alpha-repository.git
       #     janestreet-bleeding: https://github.com/janestreet/opam-repository.git
       #     janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
+
+      # Request the system package manager to update its database.
+      #
+      # GitHub Actions runner images may have a stale cache, which can cause
+      # opam-depext to fail when installing system dependencies. This may help
+      # prevent such issues.
+      - name: Update apt package index
+        run: opam update --depexts
 
       - name: Install OCaml Dependencies
         run: opam install . --deps-only --with-doc
