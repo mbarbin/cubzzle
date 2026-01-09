@@ -68,11 +68,16 @@ jobs:
         if: runner.os == 'Linux'
         run: opam update --depexts
 
+      - name: Environment setup
+        run: |
+          echo "PACKAGES=cubzzle,cubzzle-tests" >> "$GITHUB_ENV"
+          echo "OPAM_PACKAGES=./cubzzle.opam ./cubzzle-tests.opam" >> "$GITHUB_ENV"
+
       # We build and run tests for a subset of packages. More tests are run in
       # the development workflow and as part of the main CI job. These are the
       # tests that are checked for every combination of os and ocaml-compiler.
       - name: Install dependencies
-        run: opam install ./cubzzle.opam ./cubzzle-tests.opam --deps-only --with-test
+        run: opam install ${{ env.OPAM_PACKAGES }} --deps-only --with-test
 
       - name: Build & Run tests
-        run: opam exec -- dune build @all @runtest --only-packages=cubzzle,cubzzle-tests
+        run: opam exec -- dune build @all @runtest --only-packages=${{ env.PACKAGES }}
