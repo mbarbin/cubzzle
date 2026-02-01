@@ -14,6 +14,8 @@ jobs:
   build:
     name: Build OCaml Doc
     runs-on: ubuntu-latest
+    env:
+      OCAML_VERSION: "5.4"
     defaults:
       run:
         shell: bash
@@ -23,31 +25,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup OCaml
-        uses: ocaml/setup-ocaml@dec6499fef64fc5d7ed43d43a87251b7b1c306f5 # v3.4.8
+      - name: Environment setup
+        run: |
+          echo "DUNE_WORKSPACE=$PWD/dune-workspace-${{ env.OCAML_VERSION }}" >> "$GITHUB_ENV"
+
+      - name: Setup Dune
+        uses: mbarbin/setup-dune@d38f7c80df59974cbe417c7f2a849219d54b4fdf # v2.0.0+patch-3
         with:
-          ocaml-compiler: "5.4.x"
-          dune-cache: true
-          opam-repositories: |
-            default: https://github.com/ocaml/opam-repository.git
-            mbarbin: https://github.com/mbarbin/opam-repository.git
-            alpha:   https://github.com/kit-ty-kate/opam-alpha-repository.git
-      #     janestreet-bleeding: https://github.com/janestreet/opam-repository.git
-      #     janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
-
-      # Request the system package manager to update its database.
-      #
-      # GitHub Actions runner images may have a stale cache, which can cause
-      # opam-depext to fail when installing system dependencies. This may help
-      # prevent such issues.
-      - name: Update apt package index
-        run: opam update --depexts
-
-      - name: Install OCaml Dependencies
-        run: opam install . --deps-only --with-doc
+          version: "3.21.0"
+          workspace: ${{ env.DUNE_WORKSPACE }}
+          cache-prefix: "deploy-odoc-${{ env.OCAML_VERSION }}"
+          steps: install-dune enable-pkg lazy-update-depexts install-gpatch install-depexts
 
       - name: Build Odoc Pages
-        run: opam exec -- dune build @doc
+        run: dune build @doc
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
