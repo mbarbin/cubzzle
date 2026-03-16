@@ -4,4 +4,7 @@
 (*  SPDX-License-Identifier: MIT                                                 *)
 (*********************************************************************************)
 
-include Stdlib0
+include Stdlib.Stack
+
+let pop = pop_opt
+let push t a = push a t

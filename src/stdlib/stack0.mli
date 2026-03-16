@@ -4,8 +4,9 @@
 (*_  SPDX-License-Identifier: MIT                                                 *)
 (*_********************************************************************************)
 
-(** Extending [Stdlib] for use in the project. *)
-
 include module type of struct
-  include Stdlib0
+  include Stdlib.Stack
 end
+
+val pop : 'a t -> 'a option
+val push : 'a t -> 'a -> unit
