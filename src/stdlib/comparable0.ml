@@ -4,4 +4,8 @@
 (*  SPDX-License-Identifier: MIT                                                 *)
 (*********************************************************************************)
 
-include Stdlib0
+module type S = sig
+  type t
+
+  val compare : t -> t -> Ordering.t
+end

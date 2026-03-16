@@ -4,8 +4,8 @@
 (*_  SPDX-License-Identifier: MIT                                                 *)
 (*_********************************************************************************)
 
-(** Extending [Stdlib] for use in the project. *)
+module type S = sig
+  type t
 
-include module type of struct
-  include Stdlib0
+  val compare : t -> t -> Ordering.t
 end
