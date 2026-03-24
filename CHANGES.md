@@ -6,6 +6,7 @@ practices.
 
 ### Added
 
+- Include pre-compiled `cubzzle` artifacts uploaded with `gh` (@mbarbin).
 - Enabled OCaml `5.4` in CI (#16, @mbarbin).
 - Add `dunolint` invariants config and workflows (#15, @mbarbin).
 
