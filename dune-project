@@ -27,6 +27,8 @@
    (>= 0.0.9))
   (cmdlang-cmdliner-err-runner
    (>= 0.0.16))
+  (dune-build-info
+   (>= 3.20))
   (dyn
    (>= 3.20))
   (graphics

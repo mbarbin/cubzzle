@@ -3,7 +3,7 @@
  (public_name cubzzle)
  (package cubzzle)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
- (libraries cmdlang-cmdliner-err-runner cubzzle)
+ (libraries cmdlang-cmdliner-err-runner cubzzle dune-build-info)
  (instrumentation
   (backend bisect_ppx))
  (lint
