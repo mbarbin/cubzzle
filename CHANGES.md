@@ -1,3 +1,24 @@
+## 0.0.13 (2026-03-24)
+
+This release brings no changes to the app itself, but contains a number of
+internal improvements to keep up with external dependencies and common
+practices.
+
+### Added
+
+- Enabled OCaml `5.4` in CI (#16, @mbarbin).
+- Add `dunolint` invariants config and workflows (#15, @mbarbin).
+
+### Changed
+
+- Use `dune-build-info` for `--version` (@mbarbin).
+- Upgrade to latest `ocamformat` (@mbarbin).
+- Improve file headers handling (@mbarbin).
+- Improve CI scripts (#23, #24, #25, #26, @mbarbin).
+- Refactor package directory structure (#21, #22, @mbarbin).
+- Reduce project dependencies (#20, @mbarbin).
+- Switch to `pplumbing-` split packages (#13, @mbarbin).
+
 ## 0.0.12 (2025-09-16)
 
 ### Changed
