@@ -22,8 +22,9 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
+        ocaml-version: ["5.4"]
     env:
-      OPAM_DESTDIR: ${{ github.workspace }}/opam-destdir
+      INSTALL_PREFIX: ${{ github.workspace }}/dune-destdir
 
     defaults:
       run:
@@ -63,33 +64,34 @@ jobs:
         with:
           ref: ${{ env.TAG_NAME }}
 
-      - name: Setup OCaml
-        uses: ocaml/setup-ocaml@dec6499fef64fc5d7ed43d43a87251b7b1c306f5 # v3.4.8
-        with:
-          ocaml-compiler: 5.3.x
-          opam-repositories: |
-            default: https://github.com/ocaml/opam-repository.git
-            mbarbin: https://github.com/mbarbin/opam-repository.git
-      #     alpha:   https://github.com/kit-ty-kate/opam-alpha-repository.git
-      #     janestreet-bleeding: https://github.com/janestreet/opam-repository.git
-      #     janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
-
-      - name: Build Artifacts
+      - name: Environment setup
         run: |
-          mkdir -p "$OPAM_DESTDIR"
-          opam install ./cubzzle.opam --destdir="$OPAM_DESTDIR"
-        env:
-          OPAMYES: "true"
+          echo "DUNE_WORKSPACE=$PWD/dune-workspace-${{ matrix.ocaml-version }}" >> "$GITHUB_ENV"
+
+      - name: Setup Dune
+        uses: mbarbin/setup-dune@ae2985bcdedc6fb24e5743d6f9dace9cf262b41c # v2.0.0+patch-4
+        with:
+          version: "3.21.0"
+          workspace: ${{ env.DUNE_WORKSPACE }}
+          cache-prefix: "main-ci-${{ matrix.ocaml-version }}"
+          cache-readonly: true
+          steps: install-dune enable-pkg lazy-update-depexts install-gpatch install-depexts
+
+      - name: Build and Install Artifacts
+        run: |
+          mkdir -p "$INSTALL_PREFIX"
+          dune build --profile=release @install
+          dune install cubzzle --profile=release --prefix="$INSTALL_PREFIX"
 
       - name: Prepare Artifacts
         run: |
           os=$(echo "${{ runner.os }}" | tr '[:upper:]' '[:lower:]')
           arch=$(uname -m)
           bin_name="${{ github.workspace }}/cubzzle-$TAG_NAME-$os-$arch"
-          cp "$OPAM_DESTDIR/bin/cubzzle" "$bin_name"
+          cp "$INSTALL_PREFIX/bin/cubzzle" "$bin_name"
           echo "BIN_NAME=$bin_name" >> $GITHUB_ENV
           archive_name="${bin_name}.tar.gz"
-          tar -czf "$archive_name" -C "$OPAM_DESTDIR/bin" cubzzle
+          tar -czf "$archive_name" -C "$INSTALL_PREFIX/bin" cubzzle
           echo "ARCHIVE_NAME=$archive_name" >> $GITHUB_ENV
 
       - name: Attest Build Provenance
